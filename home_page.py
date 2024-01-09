@@ -4,9 +4,9 @@ def show_home_page():
     image_path = "头像.JPG"
     st.image(image_path, width=70)
     text = """
-    # ChatWeb - 与AI进行对话的Web应用
+    # ChatWeb - 通过AI和网页内容进行对话的Web应用
 
-    ChatWeb是一个用于与AI进行对话的Web应用，支持多种AI模型，包括智谱AI和OpenAI。它可以从指定的网址解析内容，并与AI模型进行互动。以下是ChatWeb的功能和教程：
+    ChatWeb是一个用AI和网页内容进行对话的Web应用，支持多种AI模型，包括智谱AI和OpenAI。它可以从指定的网址解析内容，并与AI模型进行互动。以下是ChatWeb的功能和教程：
 
     ## 功能特点
 
