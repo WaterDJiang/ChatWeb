@@ -26,8 +26,8 @@ def reset_session_state(except_keys=None):
         if not except_keys or key not in except_keys:
             del st.session_state[key]
 
-#保存内容使用浏览器的下载功能
-def save_content_to_file(file_name, content):
+#定义保存功能
+def save_content_to_server(file_name, content):
     with open(file_name, "w", encoding="utf-8") as file:
         file.write(content)
 
