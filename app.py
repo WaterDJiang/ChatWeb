@@ -98,6 +98,7 @@ with col2:
                 file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
                 save_content_to_file(file_name, st.session_state['scraped_content'])
                 st.success(f"内容已保存为: {file_name}")
+                st.markdown(f'<a href="{file_name}" download="{file_name}">点击此处下载文件</a>', unsafe_allow_html=True)
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -111,3 +112,4 @@ with col2:
             file_name = f"ai结果_{current_time}.txt"
             save_content_to_file(file_name, st.session_state['ai_response'])
             st.success(f"AI结果已保存为: {file_name}")
+            st.markdown(f'<a href="{file_name}" download="{file_name}">点击此处下载文件</a>', unsafe_allow_html=True)
