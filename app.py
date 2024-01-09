@@ -4,6 +4,7 @@ from scraper import scrape_website
 from openai_module import generate_with_openai_stream
 from zhipuai_module import sse_invoke_example
 from datetime import datetime
+import click
 
 # 一次性获取所有必要的环境变量
 # openai_api_key, zhipuai_api_key = map(os.getenv, ['OPENAI_API_KEY', 'ZHIPUAI_API_KEY'])
@@ -97,16 +98,12 @@ with col2:
                 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
                 file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
                 save_content_to_server(file_name, st.session_state['scraped_content'])
-                st.success(f"内容已保存到服务器，请点击下方下载按钮保存: {file_name}")
+                st.success(f"内容已保存到服务器: {file_name}")
                 
-                # 使用st.download_button提供下载按钮
-                with open(file_name, "rb") as f:
-                    st.download_button(
-                        label=f"下载 {file_name}",
-                        data=f,
-                        file_name=file_name,
-                        mime="text/plain"
-                    )
+                # 模拟点击浏览器中的链接以下载文件
+                download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
+                st.markdown(download_link, unsafe_allow_html=True)
+                click.echo(f"点击此处下载文件: /download/{file_name}")
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -119,13 +116,9 @@ with col2:
             current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             file_name = f"ai结果_{current_time}.txt"
             save_content_to_server(file_name, st.session_state['ai_response'])
-            st.success(f"AI结果已保存到服务器，请点击下方下载按钮保存: {file_name}")
+            st.success(f"AI结果已保存到服务器: {file_name}")
             
-            # 使用st.download_button提供下载按钮
-            with open(file_name, "rb") as f:
-                st.download_button(
-                    label=f"下载 {file_name}",
-                    data=f,
-                    file_name=file_name,
-                    mime="text/plain"
-                )
+            # 模拟点击浏览器中的链接以下载文件
+            download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
+            st.markdown(download_link, unsafe_allow_html=True)
+            click.echo(f"点击此处下载文件: /download/{file_name}")
