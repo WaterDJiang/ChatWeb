@@ -31,6 +31,15 @@ def save_content_to_file(file_name, content):
     with open(file_name, "w", encoding="utf-8") as file:
         file.write(content)
 
+# 设置下载路由
+@st.server.route("/download/<file_name>")
+def download_file(file_name):
+    # 获取文件路径
+    file_path = f"./{file_name}"
+    
+    # 发送文件给用户
+    return st.send_file(file_path, as_attachment=True)
+
 # 设置页面布局为宽屏模式
 st.set_page_config(layout="wide")
 
