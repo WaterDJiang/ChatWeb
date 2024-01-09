@@ -30,7 +30,7 @@ with col1:
     with col1_2:
         st.title("ChatWeb")
     # Author and version info
-    st.caption("作者: [ Wattter ] - 版本 0.2.0")
+    st.caption("作者: [ Wattter ] - 版本 0.3.0")
 
     # Web URL input
     url_input = st.text_input("请输入想要对话的网址：", value='', key="url_input")
