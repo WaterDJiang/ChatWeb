@@ -87,7 +87,7 @@ with col2:
                         file_name=file_name,
                         mime="text/plain"
                     )
-                st.success(f"内容已保存为: {file_name}")
+                st.success(f"内容已保存，点击链接下载: {file_name}")
         else:
             st.write("没有解析到内容或内容为空。")
 
@@ -107,5 +107,5 @@ with col2:
                     file_name=file_name,
                     mime="text/plain"
                 )
-            st.success(f"AI结果已保存为: {file_name}")
+            st.success(f"AI结果已保存，点击链接下载: {file_name}")
 
