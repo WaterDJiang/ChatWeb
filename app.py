@@ -106,11 +106,10 @@ with col2:
         if st.session_state['scraped_content']:
             st.text_area("原文的内容", st.session_state['scraped_content'], height=250)
             if st.button("保存解析的内容"):
-                # 创建一个空元素来展示进度
-                with st.empty() as progress_text:
-                    progress_text.text("正在保存文件...")
-                    file_name = save_and_download(st.session_state['scraped_content'], "解析结果")
-                    progress_text.text(f"文件已保存: {file_name}")
+                # 显示进度消息
+                progress_text = st.text("正在保存文件...")
+                file_name = save_and_download(st.session_state['scraped_content'], "解析结果")
+                progress_text.text(f"文件已保存: {file_name}")
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -120,8 +119,7 @@ with col2:
         # 显示AI处理结果
         st.markdown(st.session_state['ai_response'])
         if st.button("保存AI结果"):
-            # 创建一个空元素来展示进度
-            with st.empty() as progress_text:
-                progress_text.text("正在保存文件...")
-                file_name = save_and_download(st.session_state['ai_response'], "ai结果")
-                progress_text.text(f"文件已保存: {file_name}")
+            # 显示进度消息
+            progress_text = st.text("正在保存文件...")
+            file_name = save_and_download(st.session_state['ai_response'], "ai结果")
+            progress_text.text(f"文件已保存: {file_name}")
