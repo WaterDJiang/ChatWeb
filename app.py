@@ -96,9 +96,12 @@ with col2:
             if st.button("保存解析的内容"):
                 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
                 file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
-                save_content_to_file(file_name, st.session_state['scraped_content'])
-                st.success(f"内容已保存为: {file_name}")
-                st.markdown(f'[点击此处下载文件]({file_name})')
+                save_content_to_server(file_name, st.session_state['scraped_content'])
+                st.success(f"内容已保存到服务器: {file_name}")
+                
+                # 提供下载按钮
+                download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
+                st.markdown(download_link, unsafe_allow_html=True)
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -110,6 +113,9 @@ with col2:
         if st.button("保存AI结果"):
             current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             file_name = f"ai结果_{current_time}.txt"
-            save_content_to_file(file_name, st.session_state['ai_response'])
-            st.success(f"AI结果已保存为: {file_name}")
-            st.markdown(f'[点击此处下载文件]({file_name})')
+            save_content_to_server(file_name, st.session_state['ai_response'])
+            st.success(f"AI结果已保存到服务器: {file_name}")
+            
+            # 提供下载按钮
+            download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
+            st.markdown(download_link, unsafe_allow_html=True)
