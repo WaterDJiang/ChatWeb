@@ -43,7 +43,7 @@ with col1:
         st.image(image_path, width=70)
     # 网页标题
     with col1_2:
-        st.title("ChatWeb")
+        st.title("ChatWWWeb")
     # 添加作者和版本号信息
     st.caption("作者: [ Wattter ] - 版本 0.2.0")
 
