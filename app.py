@@ -97,7 +97,7 @@ with col2:
                 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
                 file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
                 save_content_to_server(file_name, st.session_state['scraped_content'])
-                st.success(f"内容已保存到服务器: {file_name}")
+                st.success(f"内容已保存到服务器，请点击下方下载按钮保存: {file_name}")
                 
                 # 使用st.download_button提供下载按钮
                 with open(file_name, "rb") as f:
@@ -119,7 +119,7 @@ with col2:
             current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             file_name = f"ai结果_{current_time}.txt"
             save_content_to_server(file_name, st.session_state['ai_response'])
-            st.success(f"AI结果已保存到服务器: {file_name}")
+            st.success(f"AI结果已保存到服务器，请点击下方下载按钮保存: {file_name}")
             
             # 使用st.download_button提供下载按钮
             with open(file_name, "rb") as f:
