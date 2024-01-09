@@ -5,6 +5,7 @@ from openai_module import generate_with_openai_stream
 from zhipuai_module import sse_invoke_example
 from datetime import datetime
 import click
+import io
 
 # 一次性获取所有必要的环境变量
 # openai_api_key, zhipuai_api_key = map(os.getenv, ['OPENAI_API_KEY', 'ZHIPUAI_API_KEY'])
@@ -27,10 +28,20 @@ def reset_session_state(except_keys=None):
         if not except_keys or key not in except_keys:
             del st.session_state[key]
 
-#定义保存功能
-def save_content_to_server(file_name, content):
-    with open(file_name, "w", encoding="utf-8") as file:
-        file.write(content)
+# 保存内容到内存并写入文件
+def save_content_to_memory(content, file_name):
+    file_buffer = io.BytesIO()
+    file_buffer.write(content.encode())
+    with open(file_name, "wb") as f:
+        f.write(file_buffer.getvalue())
+    click.echo(f"文件已保存: {file_name}")
+
+# 保存内容到文件并触发下载，返回文件名
+def save_and_download(content, file_prefix):
+    current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = f"{file_prefix}_{current_time}.txt"
+    save_content_to_memory(content, file_name)
+    return file_name
 
 # 设置页面布局为宽屏模式
 st.set_page_config(layout="wide")
@@ -50,7 +61,7 @@ with col1:
     with col1_2:
         st.title("ChatWeb")
     # 添加作者和版本号信息
-    st.caption("作者: [ Wattter ] - 版本 0.3.0")
+    st.caption("作者: [ Wattter ] - 版本 0.2.0")
 
     # 网址输入栏
     url_input = st.text_input("请输入想要对话的网址：", value='', key="url_input")
@@ -95,15 +106,11 @@ with col2:
         if st.session_state['scraped_content']:
             st.text_area("原文的内容", st.session_state['scraped_content'], height=250)
             if st.button("保存解析的内容"):
-                current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
-                file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
-                save_content_to_server(file_name, st.session_state['scraped_content'])
-                st.success(f"内容已保存到服务器: {file_name}")
-                
-                # 模拟点击浏览器中的链接以下载文件
-                download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
-                st.markdown(download_link, unsafe_allow_html=True)
-                click.echo(f"点击此处下载文件: /download/{file_name}")
+                # 创建一个空元素来展示进度
+                with st.empty() as progress_text:
+                    progress_text.text("正在保存文件...")
+                    file_name = save_and_download(st.session_state['scraped_content'], "解析结果")
+                    progress_text.text(f"文件已保存: {file_name}")
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -113,12 +120,8 @@ with col2:
         # 显示AI处理结果
         st.markdown(st.session_state['ai_response'])
         if st.button("保存AI结果"):
-            current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            file_name = f"ai结果_{current_time}.txt"
-            save_content_to_server(file_name, st.session_state['ai_response'])
-            st.success(f"AI结果已保存到服务器: {file_name}")
-            
-            # 模拟点击浏览器中的链接以下载文件
-            download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
-            st.markdown(download_link, unsafe_allow_html=True)
-            click.echo(f"点击此处下载文件: /download/{file_name}")
+            # 创建一个空元素来展示进度
+            with st.empty() as progress_text:
+                progress_text.text("正在保存文件...")
+                file_name = save_and_download(st.session_state['ai_response'], "ai结果")
+                progress_text.text(f"文件已保存: {file_name}")
