@@ -1,7 +1,7 @@
 import openai
 
 # 填写你的秘钥
-openai.api_key = "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"
+openai.api_key = "your-api-key"
 
 # 提问代码
 def generate_with_openai_stream(prompt):
