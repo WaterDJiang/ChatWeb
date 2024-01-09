@@ -1,7 +1,7 @@
 import zhipuai
 
 # 设置智谱AI的API密钥
-zhipuai.api_key = "ddfd91007065985514ef0feb32176d1b.R8zk33iEIN7qp9wM"
+zhipuai.api_key = "your-api-key"
 
 #定义一个函数，用于调用智谱AI模型并处理前端传入的文本
 def sse_invoke_example(prompt_text):
