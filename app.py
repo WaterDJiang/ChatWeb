@@ -31,15 +31,6 @@ def save_content_to_server(file_name, content):
     with open(file_name, "w", encoding="utf-8") as file:
         file.write(content)
 
-# 设置下载路由
-@st.server.route("/download/<file_name>")
-def download_file(file_name):
-    # 获取文件路径
-    file_path = f"./{file_name}"
-    
-    # 发送文件给用户
-    return st.send_file(file_path, as_attachment=True)
-
 # 设置页面布局为宽屏模式
 st.set_page_config(layout="wide")
 
@@ -108,9 +99,14 @@ with col2:
                 save_content_to_server(file_name, st.session_state['scraped_content'])
                 st.success(f"内容已保存到服务器: {file_name}")
                 
-                # 提供下载按钮
-                download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
-                st.markdown(download_link, unsafe_allow_html=True)
+                # 使用st.download_button提供下载按钮
+                with open(file_name, "rb") as f:
+                    st.download_button(
+                        label=f"下载 {file_name}",
+                        data=f,
+                        file_name=file_name,
+                        mime="text/plain"
+                    )
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -125,6 +121,11 @@ with col2:
             save_content_to_server(file_name, st.session_state['ai_response'])
             st.success(f"AI结果已保存到服务器: {file_name}")
             
-            # 提供下载按钮
-            download_link = f'<a href="/download/{file_name}" download="{file_name}">点击此处下载文件</a>'
-            st.markdown(download_link, unsafe_allow_html=True)
+            # 使用st.download_button提供下载按钮
+            with open(file_name, "rb") as f:
+                st.download_button(
+                    label=f"下载 {file_name}",
+                    data=f,
+                    file_name=file_name,
+                    mime="text/plain"
+                )
