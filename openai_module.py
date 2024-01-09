@@ -2,7 +2,7 @@ import openai
 import os
 import streamlit as st
 # 填写你的秘钥
-os.environ["OPENAI_API_KEY"] = st.secrets["openai"]["openai_api_key"]
+openai.api_key = st.secrets["openai"]["api_key"]
 
 # 提问代码
 def generate_with_openai_stream(prompt):
