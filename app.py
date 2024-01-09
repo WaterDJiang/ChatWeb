@@ -10,13 +10,10 @@ import io
 # 一次性获取所有必要的环境变量
 # openai_api_key, zhipuai_api_key = map(os.getenv, ['OPENAI_API_KEY', 'ZHIPUAI_API_KEY'])
 
-# 内容保存函数
-def save_content(file_name, content):
-    output_dir = 'output'
-    os.makedirs(output_dir, exist_ok=True)  # 确保输出目录存在
-    with open(os.path.join(output_dir, file_name), 'w') as file:
+# 保存内容到文件
+def save_content_to_file(file_name, content):
+    with open(file_name, "w", encoding="utf-8") as file:
         file.write(content)
-    st.success(f"内容已保存为: {os.path.join(output_dir, file_name)}")
 
 # 判断内容是否为有效的文本或数据表
 def is_valid_content(content):
@@ -106,10 +103,19 @@ with col2:
         if st.session_state['scraped_content']:
             st.text_area("原文的内容", st.session_state['scraped_content'], height=250)
             if st.button("保存解析的内容"):
-                # 显示进度消息
-                progress_text = st.text("正在保存文件...")
-                file_name = save_and_download(st.session_state['scraped_content'], "解析结果")
-                progress_text.text(f"文件已保存: {file_name}")
+                current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
+                file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
+                save_content_to_file(file_name, st.session_state['scraped_content'])
+                st.success(f"内容已保存为: {file_name}")
+                
+                # 使用st.download_button提供下载按钮
+                with open(file_name, "rb") as f:
+                    st.download_button(
+                        label=f"下载 {file_name}",
+                        data=f,
+                        file_name=file_name,
+                        mime="text/plain"
+                    )
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
@@ -119,7 +125,16 @@ with col2:
         # 显示AI处理结果
         st.markdown(st.session_state['ai_response'])
         if st.button("保存AI结果"):
-            # 显示进度消息
-            progress_text = st.text("正在保存文件...")
-            file_name = save_and_download(st.session_state['ai_response'], "ai结果")
-            progress_text.text(f"文件已保存: {file_name}")
+            current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            file_name = f"ai结果_{current_time}.txt"
+            save_content_to_file(file_name, st.session_state['ai_response'])
+            st.success(f"AI结果已保存为: {file_name}")
+            
+            # 使用st.download_button提供下载按钮
+            with open(file_name, "rb") as f:
+                st.download_button(
+                    label=f"下载 {file_name}",
+                    data=f,
+                    file_name=file_name,
+                    mime="text/plain"
+                )
