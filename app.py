@@ -26,6 +26,10 @@ def reset_session_state(except_keys=None):
         if not except_keys or key not in except_keys:
             del st.session_state[key]
 
+#保存内容使用浏览器的下载功能
+def save_content_to_file(file_name, content):
+    with open(file_name, "w", encoding="utf-8") as file:
+        file.write(content)
 
 # 设置页面布局为宽屏模式
 st.set_page_config(layout="wide")
@@ -45,7 +49,7 @@ with col1:
     with col1_2:
         st.title("ChatWeb")
     # 添加作者和版本号信息
-    st.caption("作者: [ Wattter ] - 版本 0.2.0 Beta")
+    st.caption("作者: [ Wattter ] - 版本 0.2.0")
 
     # 网址输入栏
     url_input = st.text_input("请输入想要对话的网址：", value='', key="url_input")
@@ -92,12 +96,12 @@ with col2:
             if st.button("保存解析的内容"):
                 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
                 file_name = f"{current_time}.txt" if is_valid_content(st.session_state['scraped_content']) else f"{current_time}.csv"
-                save_content(file_name, st.session_state['scraped_content'])
+                save_content_to_file(file_name, st.session_state['scraped_content'])
+                st.success(f"内容已保存为: {file_name}")
         else:
             # 爬取的内容存在但为空
             st.write("没有解析到内容或内容为空。")
-    # 如果 'scraped_content' 不存在于 st.session_state 中，不显示任何信息
-
+    
     # AI处理输出区域
     if st.session_state.get('ai_response'):
         # 显示AI处理结果
@@ -105,4 +109,5 @@ with col2:
         if st.button("保存AI结果"):
             current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             file_name = f"ai结果_{current_time}.txt"
-            save_content(file_name, st.session_state['ai_response'])
+            save_content_to_file(file_name, st.session_state['ai_response'])
+            st.success(f"AI结果已保存为: {file_name}")
