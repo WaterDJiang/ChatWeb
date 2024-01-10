@@ -33,7 +33,7 @@ def show_chatweb_page():
         st.caption("作者: [ Wattter ] - 版本 0.3.0")
 
         # 网址输入
-        url_input = st.text_input("请输入想要对话的网址：", value='', key="url_input")
+        url_input = st.text_input("1.请输入想要对话的网址：", value='', key="url_input")
         clear_button, scrape_button = st.columns([1, 2])  # 创建清除和解析按钮
         if clear_button.button("清除结果"):
             st.session_state.clear()
@@ -53,7 +53,7 @@ def show_chatweb_page():
         # 与AI交互输入
         st.subheader("与AI对话")
         ai_model_selector = st.selectbox("选择AI模型：", AI_MODELS)
-        ai_prompt_input = st.text_area("请输入想要AI做的事情：", height=200)
+        ai_prompt_input = st.text_area("2.请输入想要AI做的事情：", height=200)
         ai_prompt_combined = st.session_state.get('scraped_content', '') + "\n" + ai_prompt_input
         if st.button("提交"):
             with st.spinner('AI正在处理，请稍候...'):
