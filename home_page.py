@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 
 def show_home_page():
     image_path = "images/im1.jpg"
@@ -40,12 +39,12 @@ def show_home_page():
 
     # 在第一列中显示第一张图像
     with col1:
-        image_path = Image.open("images/web.jpg") 
+        image_path = "images/web.jpg"
         st.image(image_path, width=800)  # 调整宽度以适应列宽
 
     # 在第二列中显示第二张图像
     with col2:
-        image_path = Image.open("images/contents.jpg") 
+        image_path = "images/contents.jpg"
         st.image(image_path, width=800)  # 调整宽度以适应列宽
 
     text = """
