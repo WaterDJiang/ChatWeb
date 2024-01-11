@@ -5,11 +5,11 @@ st.set_page_config(layout="wide")
 
 # Import the page modules
 from home_page import show_home_page
-from tbd_page import show_tbd_page
+from chatConts_page import show_chatConts_page
 from chatweb_page import show_chatweb_page  # Import the original ChatWeb page
 
 # 添加标签页
-tab1, tab2, tab3 = st.tabs(["首页","ChatWeb", "TBD"])
+tab1, tab2, tab3 = st.tabs(["首页","ChatWeb", "ChatConts"])
 
 # 主应用程序
 with tab1:
@@ -17,5 +17,5 @@ with tab1:
 with tab2:
     show_chatweb_page()
 with tab3:
-    show_tbd_page()
+    show_chatConts_page()
 
