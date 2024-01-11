@@ -13,7 +13,7 @@ def show_chatweb_page():
     
 
     # 定义AI模型选择的常量
-    AI_MODELS = ["智谱AI", "OpenAI"]
+    AI_MODELS = ["智谱AI"] # 可以定义为"OpenAI"
 
     # 创建页面布局：左侧25%和右侧75%
     col1, col2 = st.columns([1, 3], gap="medium")
