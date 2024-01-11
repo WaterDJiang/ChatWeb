@@ -1,14 +1,17 @@
 import streamlit as st
 
 def show_home_page():
-    image_path = "im1.JPG"
+    image_path = "images/im1.JPG"
     st.image(image_path, width=70)
     text = """
     
 ## 不仅仅是阅读，试试和你喜欢的内容交谈，让AI带你深入“内容”之心。
 ## 发现、解析、互动——一切尽在掌握！
----
+    """
+    st.write(text)
 
+    text = """
+    ---
 ## ChatWeb & ChatContents：释放内容新魅力
 
 ### 轻松获取内容精华
@@ -27,9 +30,25 @@ def show_home_page():
 - 发现珍贵资料？一键保存后稍后查看也行。聚集知识，随时翻阅。
 
 - 用AI开启高效率学习和工作方式！
-
 ---
+    """
+    st.write(text)
 
+    # 使用st.columns创建两个并排的列
+    col1, col2 = st.columns(2)
+
+    # 在第一列中显示第一张图像
+    with col1:
+        image_path = "images/web.JPG"
+        st.image(image_path, width=800)  # 调整宽度以适应列宽
+
+    # 在第二列中显示第二张图像
+    with col2:
+        image_path = "images/contents.JPG"
+        st.image(image_path, width=800)  # 调整宽度以适应列宽
+
+    text = """
+    ---
 ## 如何使用
 
 ### 步骤1: 输入网址并解析内容
@@ -55,5 +74,3 @@ def show_home_page():
 
     """
     st.write(text)
-
-
