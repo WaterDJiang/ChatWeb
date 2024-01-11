@@ -51,7 +51,7 @@ def show_chatweb_page():
                     st.error(f"解析过程中发生错误: {e}")
 
         # 与AI交互输入
-        st.subheader("与AI对话")
+        st.subheader("通过AI与内容对话")
         ai_model_selector = st.selectbox("选择AI模型：", AI_MODELS)
         ai_prompt_input = st.text_area("2.请输入想要AI做的事情：", height=200)
         ai_prompt_combined = st.session_state.get('scraped_content', '') + "\n" + ai_prompt_input
