@@ -22,7 +22,7 @@ def show_ChatContents_page():
         # 主图像
         with col1_1:
             from PIL import Image
-            st.image(Image.open("images/im2.JPG"))
+            st.image(Image.open("images/im1.JPG"))
             st.image(image_path, width=70)
         # 网页标题
         with col1_2:
