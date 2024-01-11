@@ -41,12 +41,14 @@ def show_home_page():
 
     # 在第一列中显示第一张图像
     with col1:
-        image_path = "images/web.JPG"
+        current_dir = os.getcwd()
+        image_path = os.path.join(current_dir, 'images', 'web.JPG')
         st.image(image_path, width=800)  # 调整宽度以适应列宽
 
     # 在第二列中显示第二张图像
     with col2:
-        image_path = "images/contents.JPG"
+        current_dir = os.getcwd()
+        image_path = os.path.join(current_dir, 'images', 'contents.JPG')
         st.image(image_path, width=800)  # 调整宽度以适应列宽
 
     text = """
