@@ -24,7 +24,7 @@ def show_chatweb_page():
         col1_1, col1_2 = st.columns([1, 4])
         # 主图像
         with col1_1:
-            image_path = "头像.JPG"
+            image_path = "im1.JPG"
             st.image(image_path, width=70)
         # 网页标题
         with col1_2:
