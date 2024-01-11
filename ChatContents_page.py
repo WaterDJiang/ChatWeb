@@ -31,7 +31,7 @@ def show_ChatContents_page():
 
         # 文件上传与解析
         st.subheader("1. 上传文件进行解析：")
-        uploaded_file = st.file_uploader("上传文件", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "jpeg", "png"])
+        uploaded_file = st.file_uploader("上传文件", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "jpeg", "png", "csv"])
 
         if uploaded_file is not None:
             # 使用后端函数处理文件
