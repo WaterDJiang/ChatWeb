@@ -33,8 +33,7 @@ def show_home_page():
 ---
     """
     st.write(text)
-
-    ---
+    text = """
 ## 如何使用
 
 ### 步骤1: 输入网址并解析内容
