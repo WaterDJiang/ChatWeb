@@ -2,7 +2,6 @@ import streamlit as st
 from datetime import datetime
 import io
 import os
-from PIL import Image
 
 # 导入特定的功能而不是整个模块
 from file_handler import handle_uploaded_file
@@ -22,7 +21,7 @@ def show_ChatContents_page():
         col1_1, col1_2 = st.columns([1, 4])
         # 主图像
         with col1_1:
-            image_path = Image.open("images/im2.jpg") 
+            image_path = "images/im2.jpg"
             st.image(image_path, width=70)
         # 网页标题
         with col1_2:
