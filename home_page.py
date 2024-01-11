@@ -1,9 +1,7 @@
 import streamlit as st
-import os
 
 def show_home_page():
-    current_dir = os.getcwd()
-    image_path = os.path.join(current_dir, 'images', 'im1.JPG')
+    image_path = "images/im1.JPG"
     st.image(image_path, width=70)
     text = """
     
@@ -12,7 +10,7 @@ def show_home_page():
     """
     st.write(text)
 
-    text = """ 
+    text = """
     ---
 ## ChatWeb & ChatContents：释放内容新魅力
 
@@ -36,22 +34,6 @@ def show_home_page():
     """
     st.write(text)
 
-    # 使用st.columns创建两个并排的列
-    col1, col2 = st.columns(2)
-
-    # 在第一列中显示第一张图像
-    with col1:
-        current_dir = os.getcwd()
-        image_path = os.path.join(current_dir, 'images', 'web.JPG')
-        st.image(image_path, width=800)  # 调整宽度以适应列宽
-
-    # 在第二列中显示第二张图像
-    with col2:
-        current_dir = os.getcwd()
-        image_path = os.path.join(current_dir, 'images', 'contents.JPG')
-        st.image(image_path, width=800)  # 调整宽度以适应列宽
-
-    text = """
     ---
 ## 如何使用
 
