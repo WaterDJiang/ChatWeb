@@ -13,7 +13,7 @@ def show_chatweb_page():
     
 
     # 定义AI模型选择的常量
-    AI_MODELS = ["智谱AI"]  # 可选项"OpenAI"
+    AI_MODELS = ["智谱AI", "OpenAI"]
 
     # 创建页面布局：左侧25%和右侧75%
     col1, col2 = st.columns([1, 3], gap="medium")
@@ -35,7 +35,7 @@ def show_chatweb_page():
         # 网址输入
         url_input = st.text_input("1.请输入想要对话的网址：", value='', key="url_input")
         clear_button, scrape_button = st.columns([1, 2])  # 创建清除和解析按钮
-        if clear_button.button("清除结果"):
+        if clear_button.button("清除结果", key="clear_results_button"):
             st.session_state.clear()
             st.rerun()  # 重新运行以更新页面
         if scrape_button.button("开始解析你的内容") and url_input:

@@ -5,3 +5,8 @@ markdownify
 openai
 zhipuai
 pyautogui
+pyppeteer
+requests_html
+scrapy
+docx
+PyPDF2

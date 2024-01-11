@@ -4,8 +4,7 @@ def show_home_page():
     image_path = "头像.JPG"
     st.image(image_path, width=70)
     text = """
-## 不只阅读网页——试试与之交谈，让AI带你深入网页之心。
-## 发现、解析、互动——一切尽在掌握！
+## ChatWeb：不只阅读网页——与之交谈，让AI带你深入网页之心。发现、解析、互动——一切尽在掌握！
 
 # ChatWeb：释放内容新魅力
 
