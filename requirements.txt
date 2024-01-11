@@ -5,3 +5,5 @@ requests
 beautifulsoup4
 markdownify
 click
+openai
+zhipuai
