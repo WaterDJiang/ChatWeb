@@ -1,6 +1,4 @@
 streamlit
-datetime
-io
 os
 PyPDF2
 python-docx
