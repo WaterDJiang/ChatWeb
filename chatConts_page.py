@@ -10,7 +10,7 @@ from zhipuai_module import sse_invoke_example
 
 def show_chatConts_page():
     # 定义AI模型选择的常量
-    AI_MODELS = ["智谱AI", "OpenAI"]
+    AI_MODELS = ["智谱AI"] #  "OpenAI"
 
     # 创建页面布局：左侧25%和右侧75%
     col1, col2 = st.columns([1, 3], gap="medium")
