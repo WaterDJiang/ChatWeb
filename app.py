@@ -5,7 +5,7 @@ st.set_page_config(layout="wide")
 
 # Import the page modules
 from home_page import show_home_page
-from chatConts_page import show_chatConts_page
+from ChatContents_page import show_ChatContents_page
 from chatweb_page import show_chatweb_page  # Import the original ChatWeb page
 
 # 添加标签页
@@ -17,5 +17,5 @@ with tab1:
 with tab2:
     show_chatweb_page()
 with tab3:
-    show_chatConts_page()
+    show_ChatContents_page()
 
