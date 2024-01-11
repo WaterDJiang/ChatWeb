@@ -12,4 +12,3 @@ python-pptx
 Pillow
 pytesseract
 tesseract
-Pillow
