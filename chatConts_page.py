@@ -25,7 +25,7 @@ def show_chatConts_page():
             st.image(image_path, width=70)
         # 网页标题
         with col1_2:
-            st.title("ChatWeb")
+            st.title("ChatContents")
         # 作者和版本信息
         st.caption("作者: [ Wattter ] - 版本 0.4.0")
 
