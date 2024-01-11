@@ -1,7 +1,9 @@
 import streamlit as st
+import os
 
 def show_home_page():
-    image_path = "images/im1.JPG"
+    current_dir = os.getcwd()
+    image_path = os.path.join(current_dir, 'images', 'im1.JPG')
     st.image(image_path, width=70)
     text = """
     
@@ -10,7 +12,7 @@ def show_home_page():
     """
     st.write(text)
 
-    text = """
+    text = """ 
     ---
 ## ChatWeb & ChatContents：释放内容新魅力
 
