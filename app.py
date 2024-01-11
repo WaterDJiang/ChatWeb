@@ -9,7 +9,7 @@ from chatConts_page import show_chatConts_page
 from chatweb_page import show_chatweb_page  # Import the original ChatWeb page
 
 # 添加标签页
-tab1, tab2, tab3 = st.tabs(["首页","ChatWeb", "ChatConts"])
+tab1, tab2, tab3 = st.tabs(["首页","ChatWeb", "ChatContents"])
 
 # 主应用程序
 with tab1:
