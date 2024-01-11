@@ -22,7 +22,8 @@ def show_ChatContents_page():
         col1_1, col1_2 = st.columns([1, 4])
         # 主图像
         with col1_1:
-            st.image(Image.open("images/im2.JPG"))
+            image_path = "images/im1.JPG"
+            st.image(image_path, width=70)
         # 网页标题
         with col1_2:
             st.title("ChatContents")
