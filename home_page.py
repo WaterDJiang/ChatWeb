@@ -1,7 +1,7 @@
 import streamlit as st
 
 def show_home_page():
-    image_path = "头像.JPG"
+    image_path = "im1.JPG"
     st.image(image_path, width=70)
     text = """
 ## ChatWeb：不只阅读网页——与之交谈，让AI带你深入网页之心。发现、解析、互动——一切尽在掌握！
