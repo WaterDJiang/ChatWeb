@@ -82,11 +82,11 @@ def show_home_page():
 
     with col1:
         # 显示微信二维码
-        st.image("images/Wechat.jpg", caption="微信", width=400)
+        st.image("images/Wechat.jpg", caption="微信", width=300)
 
     with col2:
         # 显示 Telegram 二维码
-        st.image("images/telegram.jpg", caption="Telegram", width=400)
+        st.image("images/telegram.jpg", caption="Telegram", width=300)
 
 
 if __name__ == "__main__":
