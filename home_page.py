@@ -7,7 +7,7 @@ def show_home_page():
     
 ## 不仅仅是阅读，试试和你喜欢的内容交谈，让AI带你深入“内容”之心。
 ## 发现、解析、互动——一切尽在掌握！
-    ---
+---
     """
     st.write(text)
 
@@ -76,32 +76,19 @@ def show_home_page():
 
     """
     st.write(text)
+    
+    st.write("欢迎通过以下方式与我们联系：")
+    col1, col2 = st.columns([5, 5], gap="small")
 
-    # 检查是否已经有一个状态变量用于控制展开器
-    if 'show_contact' not in st.session_state:
-        st.session_state['show_contact'] = False  # 初始状态为不显示
+    with col1:
+        # 显示微信二维码
+        st.image("images/Wechat.jpg", caption="微信", width=400)
 
-    # 创建一个按钮，当点击时改变展开器的显示状态
-    if st.button('联系我们', key='contact_button'):
-        st.session_state['show_contact'] = not st.session_state['show_contact']
+    with col2:
+        # 显示 Telegram 二维码
+        st.image("images/telegram.jpg", caption="Telegram", width=400)
 
-    # 根据当前状态显示或隐藏展开器
-    if st.session_state['show_contact']:
-        with st.expander("联系我们", expanded=True):
-            st.write("欢迎通过以下方式与我们联系：")
-            col1, col2 = st.columns([5, 5], gap="small")
 
-            with col1:
-                # 显示微信二维码
-                st.image("images/Wechat.jpg", caption="微信", width=400)
-
-            with col2:
-                # 显示 Telegram 二维码
-                st.image("images/telegram.jpg", caption="Telegram", width=400)
-
-    # 其他现有的代码...
-
-# 其他必要的代码，例如应用初始化等
 if __name__ == "__main__":
     show_home_page()
 
