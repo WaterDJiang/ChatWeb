@@ -18,7 +18,7 @@ def show_home_page():
             show_contact_us()
 
 def show_main_page():
-    image_path = "images/im1.jpg"
+    image_path = "images/im3.png"
     st.image(image_path, width=70)
     
     st.write("""

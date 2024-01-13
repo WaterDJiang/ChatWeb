@@ -12,3 +12,4 @@ python-pptx
 Pillow
 pytesseract
 tesseract
+streamlit_analytics

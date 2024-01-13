@@ -27,8 +27,15 @@ def show_buttons(col, button_label, on_click_function):
 
 # 主页面函数
 def show_ChatAnything_page():
+    
     with st.sidebar:
         st.write(""" --- """)
+        # 初始化按钮点击状态
+        if 'content_button_clicked' not in st.session_state:
+            st.session_state['content_button_clicked'] = False
+        if 'ai_button_clicked' not in st.session_state:
+            st.session_state['ai_button_clicked'] = False
+
         user_input = st.text_area("1.请输入文本，甚至试试网址", height=100)
         uploaded_file = st.file_uploader("或上传文件", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
 
@@ -56,6 +63,8 @@ def show_ChatAnything_page():
         content_output_display = st.session_state.get('content_output', '')
         st.text_area("已提交的内容", content_output_display, height=300)
 
+        st.write(""" --- """)
+        
         ai_output_display = st.session_state.get("ai_output", '')
         st.write(ai_output_display)
 
@@ -79,10 +88,14 @@ def process_content_input(user_input, uploaded_file):
             st.session_state['user_input'] = user_input
         except Exception as e:
             st.error(f"处理内容时出错: {e}")
+        finally:
+            # 处理完成后，重置按钮状态以允许再次点击
+            st.session_state['content_button_clicked'] = False    
 
 def clear_content_input():
     st.session_state.pop("content_output", None)
     st.session_state.pop('user_input', None)
+    st.session_state['content_button_clicked'] = False
 
 def process_ai_input(ai_input, ai_uploaded_file, ai_model):
     with st.spinner('AI处理中...'):   
@@ -104,9 +117,13 @@ def process_ai_input(ai_input, ai_uploaded_file, ai_model):
             st.session_state["ai_output"] = response
         except Exception as e:
             st.error(f"处理AI输入时出错: {e}")
+        finally:
+            # AI处理完成后，重置按钮状态以允许再次点击
+            st.session_state['ai_button_clicked'] = False
 
 def clear_ai_input():
     st.session_state.pop("ai_output", None)
+    st.session_state['ai_button_clicked'] = False
 
 if __name__ == "__main__":
     show_ChatAnything_page()
