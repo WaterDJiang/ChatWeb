@@ -25,35 +25,47 @@ def show_buttons(col, button_label, on_click_function):
         if st.button(button_label):
             on_click_function()
 
-# 主页面函数
 def show_ChatAnything_page():
-    
+
     with st.sidebar:
+        st.divider()  # 画一条分界线
 
-        st.divider() #画一条分界线
-        
-        # 初始化按钮点击状态
-        if 'content_button_clicked' not in st.session_state:
-            st.session_state['content_button_clicked'] = False
-        if 'ai_button_clicked' not in st.session_state:
-            st.session_state['ai_button_clicked'] = False
+        # 初始化控制变量
+        if 'show_file_uploader' not in st.session_state:
+            st.session_state['show_file_uploader'] = False
+        if 'show_ai_file_uploader' not in st.session_state:
+            st.session_state['show_ai_file_uploader'] = False
 
-        user_input = st.text_area("1.请输入文本，甚至试试网址", height=100)
-        uploaded_file = st.file_uploader("或上传文件", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
+        user_input = st.text_area("1.请输入文本，甚至试试网址", height = 120)
 
-        col1, col2 = st.columns(2)
+        # 上传文件按钮控制
+        if st.button("上传文件", key="btn_upload_file"):
+            # 切换上传器显示状态
+            st.session_state['show_file_uploader'] = not st.session_state['show_file_uploader']
+        if st.session_state['show_file_uploader']:
+            uploaded_file = st.file_uploader("选择文件上传", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
+        else:
+            uploaded_file = None
+
+        col1, col2 = st.columns([1,2])
         show_buttons(col1, "提交内容", lambda: process_content_input(user_input, uploaded_file))
         show_buttons(col2, "清除内容", clear_content_input)
 
-        st.divider() #画一条分界线
+        st.divider()  # 画一条分界线
 
-        ai_model_selector = "智谱AI"  # 默认，不显示模型可选项目
-        # ai_model_selector = st.selectbox("选择AI模型", ["智谱AI", "OpenAI"]) #显示模型可选项目
-        ai_input = st.text_area("2.输入AI处理需求", height=100)
-        ai_uploaded_file = st.file_uploader("或上传需求模版", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
-        
-        col3, col4 = st.columns(2)
-        show_buttons(col3, "提交AI", lambda: process_ai_input(ai_input, ai_uploaded_file, ai_model_selector))
+        ai_input = st.text_area("2.输入AI处理需求(Prompt)", height=120)
+
+        if st.button("上传需求模版", key="btn_upload_ai_file"):
+            # 切换AI文件上传器的显示状态
+            st.session_state['show_ai_file_uploader'] = not st.session_state['show_ai_file_uploader']
+        if st.session_state['show_ai_file_uploader']:
+            ai_uploaded_file = st.file_uploader("选择AI需求模版上传", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
+        else:
+            ai_uploaded_file = None
+
+        col3, col4 = st.columns([1,2])
+
+        show_buttons(col3, "提交AI处理", lambda: process_ai_input(ai_input, ai_uploaded_file, "智谱AI"))
         show_buttons(col4, "清除AI内容", clear_ai_input)
 
     with st.container():
@@ -131,3 +143,6 @@ def clear_ai_input():
 
 if __name__ == "__main__":
     show_ChatAnything_page()
+
+
+
