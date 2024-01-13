@@ -10,23 +10,61 @@ def show_home_page():
 ---
     """
     st.write(text)
+    text = """
 
-    # 使用st.columns创建两个并排的列
-    col1, col2 = st.columns(2)
+## 使用说明
 
-    # 在第一列中显示第一张图像
-    with col1:
-        image_path = "images/web.jpg"
-        st.image(image_path, caption='ChatWeb',width=800)  # 调整宽度以适应列宽
+ChatAnything 是一个用于处理文本和应用AI模型交互的应用程序。以下是如何使用它的简单步骤：
 
-    # 在第二列中显示第二张图像
-    with col2:
-        image_path = "images/contents.jpg"
-        st.image(image_path, caption='ChatContents', width=800)  # 调整宽度以适应列宽
+### 主页面
+
+在主页面中，您将看到两个主要部分：内容输入和AI处理需求。
+
+### 内容输入
+
+1. 在左侧边栏的文本框中，您可以输入文本或者网址。或者如果您有一个文件，您可以上传它（支持的文件类型包括pdf、docx、txt、xlsx、xls、pptx、ppt、csv）。
+
+2. 点击“提交内容”按钮，ChatAnything 将处理您的输入并在下方显示处理后的内容。
+
+3. 如果您想清除内容输入，可以点击“清除内容”按钮。
+
+### AI处理需求
+
+1. 在右侧边栏的文本框中，您可以输入AI处理的需求或模板。同样，您也可以上传一个需求模板文件。
+
+2. 选择AI模型（默认为“智谱AI”）。
+
+3. 点击“提交AI”按钮，ChatAnything 将使用您的内容和需求来进行AI处理，并在下方显示处理后的结果。
+
+4. 如果您想清除AI输入，可以点击“清除AI内容”按钮。
+
+### 结果和下载
+
+在下方，您将看到两个文本区域，分别用于显示内容输入和AI处理的结果。
+
+如果AI处理完成，并且有结果显示，您可以点击“下载AI处理结果”按钮来下载结果文本文件。
+    ---
+    """
+    st.write(text)
+    text = """
+    ---
+    ### 使用案例
+
+    """
+    st.write(text)  
+
+    image_path = "images/web.jpg"
+    st.image(image_path, caption='ChatWeb',width=None)  # 调整宽度以适应列宽
+
+    image_path = "images/fin.jpg"
+    st.image(image_path, caption='ChatData',width=None)  # 调整宽度以适应列宽
+
+    image_path = "images/template.jpg"
+    st.image(image_path, caption='ChatAnything',width=None)  # 调整宽度以适应列宽
 
     text = """
     ---
-## ChatWeb & ChatContents：释放内容新魅力
+##  ChatAnything ：释放内容新魅力
 
 ### 轻松获取内容精华
 - 只需输入你感兴趣的**网页、PDF、DOC…**，我们就能帮你迅速捕获关键信息。无论是深入探索还是快速浏览摘要，都能得到你所需要的内容。
@@ -45,37 +83,12 @@ def show_home_page():
 
 - 用AI开启高效率学习和工作方式！
 
+---
     """
     st.write(text)
 
 
-    text = """
-    ---
-## 如何使用
 
-### 步骤1: 输入网址并解析内容
-- 在页面上找到输入框并填入想要探究的**网址**。
-- 点击`开始解析`按钮, ChatWeb将展示网页标题和重点内容。
-- 如果需要重新操作，使用`清除结果`按钮来移除当前显示的信息。
-
-### 步骤2: 与AI进行互动对话
-- 在`选择AI模型`下拉菜单中挑选您偏爱的AI（智谱AI或OpenAI）。
-- 将您希望了解或请求 AI 做的事情输入到文本框中。
-- 提交请求后等待片刻, AI将提供您所需的答案或服务。
-
-### 步骤3: 保存结果以便之后参考
-
-#### - 保存已解析的内容：
-    - 解析完成后，在右侧预览区查看原文及其要点。
-    - 点击 `保存解析的内容` 按钮即可下载该信息为文本文件备用。
-
-#### - 保存AI生成的响应：
-    - 待AI生成反馈后, 同样在右侧预览区内查看完整回复。
-    - 使用 `保存AI结果` 功能把这段智慧成果转存为文本文件。
-
-
-    """
-    st.write(text)
     
     st.write("欢迎通过以下方式与我们联系：")
     col1, col2 = st.columns([5, 5], gap="small")
@@ -91,4 +104,6 @@ def show_home_page():
 
 if __name__ == "__main__":
     show_home_page()
+
+
 

@@ -3,19 +3,29 @@ import streamlit as st
 # 在全局位置调用 set_page_config
 st.set_page_config(layout="wide")
 
-# Import the page modules
+# 导入页面模块
 from home_page import show_home_page
-from ChatContents_page import show_ChatContents_page
-from chatweb_page import show_chatweb_page  # Import the original ChatWeb page
+# from ChatContents_page import show_ChatContents_page
+# from chatweb_page import show_chatweb_page
+from ChatAnything_page import show_ChatAnything_page
 
-# 添加标签页
-tab1, tab2, tab3 = st.tabs(["首页","ChatWeb", "ChatContents"])
+# 创建侧边栏
 
-# 主应用程序
-with tab1:
+st.sidebar.title("Water.AI")
+
+# 定义页面选项
+page_options = ["首页", "ChatAnything"] #"ChatWeb", "ChatContents"
+
+# 创建下拉菜单以选择页面
+selected_page = st.sidebar.selectbox("当前页面", page_options)
+
+# 根据所选页面显示相应内容
+if selected_page == "首页":
     show_home_page()
-with tab2:
-    show_chatweb_page()
-with tab3:
-    show_ChatContents_page()
+# elif selected_page == "ChatWeb":
+#     show_chatweb_page()
+# elif selected_page == "ChatContents":
+#     show_ChatContents_page()
+elif selected_page == "ChatAnything":
+    show_ChatAnything_page()
 
