@@ -12,7 +12,8 @@ from ChatAnything_page import show_ChatAnything_page
 # 创建侧边栏
 
 st.sidebar.title("Wattter.AI")
-st.caption("作者: [ Water.J ] - 版本 0.5.0")
+with sidebar:
+    st.caption("作者: [ Water.J ] - 版本 0.5.0")
 
 # 定义页面选项
 page_options = ["首页", "ChatAnything"] #"ChatWeb", "ChatContents"
