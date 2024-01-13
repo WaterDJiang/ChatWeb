@@ -4,7 +4,7 @@ def show_home_page():
     
     # 侧边栏
     with st.sidebar:
-        st.write(""" --- """)
+        st.divider() #画一条分界线
         st.title("这里是首页哟")
 
         tool_selected = st.sidebar.radio("点击以下按钮可以查看介绍", ["简介", "使用说明", "联系我们"])
@@ -24,8 +24,8 @@ def show_main_page():
     st.write("""
     ## 不仅仅是阅读，试试和你喜欢的内容交谈，让AI带你深入“内容”之心。
     ## 发现、解析、互动——一切尽在掌握！
-    ---
     """)
+    st.divider() #画一条分界线
 
     st.write("""
     ##  ChatAnything ：释放内容新魅力
@@ -47,11 +47,7 @@ def show_main_page():
 
     - 用AI开启高效率学习和工作方式！
 
-    ---
     """)
-
-
-
 
 def show_note_tool():
     st.write("""
@@ -61,60 +57,55 @@ def show_note_tool():
 
     ### 主页面
 
-    在主页面中，您将看到两个主要部分：内容输入和AI处理需求。
+    在主页面中，您将看到两个主要部分：左边侧边栏的“内容输入”和“AI处理需求”和右边的内容输出界面。
 
     ### 内容输入
 
     1. 在左侧边栏的文本框中，您可以输入文本或者网址。或者如果您有一个文件，您可以上传它（支持的文件类型包括pdf、docx、txt、xlsx、xls、pptx、ppt、csv）。
 
-    2. 点击“提交内容”按钮，ChatAnything 将处理您的输入并在下方显示处理后的内容。
+    2. 点击“提交内容”按钮，ChatAnything 将处理您的输入并在右边的内容输出栏显示处理后的内容。
 
     3. 如果您想清除内容输入，可以点击“清除内容”按钮。
 
     ### AI处理需求
 
-    1. 在右侧边栏的文本框中，您可以输入AI处理的需求或模板。同样，您也可以上传一个需求模板文件。
+    1. 在左侧边栏的AI文本框中，您可以输入AI处理的需求或模板。同样，您也可以上传一个需求模板文件。
 
-    2. 选择AI模型（默认为“智谱AI”）。
+    2. 选择AI模型（目前为默认模型）。
 
-    3. 点击“提交AI”按钮，ChatAnything 将使用您的内容和需求来进行AI处理，并在下方显示处理后的结果。
+    3. 点击“提交AI”按钮，ChatAnything 将使用您的内容和需求来进行AI处理，并在右方显示处理后的结果。
 
     4. 如果您想清除AI输入，可以点击“清除AI内容”按钮。
 
     ### 结果和下载
 
-    在下方，您将看到两个文本区域，分别用于显示内容输入和AI处理的结果。
-
-    如果AI处理完成，并且有结果显示，您可以点击“下载AI处理结果”按钮来下载结果文本文件。
+    如果AI处理完成，并且有结果显示，您可以点击“下载”按钮来下载结果文本文件。
    
     """)
+    st.divider() #画一条分界线
 
-    st.write("""
-    ---
-    ### 使用案例
-
-    """)
+    st.write("""### 使用案例 """)
 
     image_path = "images/web.jpg"
     st.image(image_path, caption='ChatWeb', width=None)
 
-    st.write(""" --- """)
+    st.divider() #画一条分界线
 
     image_path = "images/fin.jpg"
     st.image(image_path, caption='ChatData', width=None)
 
-    st.write(""" --- """)
+    st.divider() #画一条分界线
 
     image_path = "images/template.jpg"
     st.image(image_path, caption='ChatAnything', width=None)
 
-    st.write(""" --- """)
+    st.divider() #画一条分界线
 
     pass
 
 
 def show_contact_us():
-    st.write("欢迎通过以下方式与我们联系：")
+    st.subheader("欢迎通过以下方式与我联系：")
     col1, col2 = st.columns([5, 5], gap="small")
 
     with col1:

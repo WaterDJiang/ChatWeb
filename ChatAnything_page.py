@@ -29,7 +29,9 @@ def show_buttons(col, button_label, on_click_function):
 def show_ChatAnything_page():
     
     with st.sidebar:
-        st.write(""" --- """)
+
+        st.divider() #画一条分界线
+        
         # 初始化按钮点击状态
         if 'content_button_clicked' not in st.session_state:
             st.session_state['content_button_clicked'] = False
@@ -43,11 +45,13 @@ def show_ChatAnything_page():
         show_buttons(col1, "提交内容", lambda: process_content_input(user_input, uploaded_file))
         show_buttons(col2, "清除内容", clear_content_input)
 
+        st.divider() #画一条分界线
+
         ai_model_selector = "智谱AI"  # 默认，不显示模型可选项目
         # ai_model_selector = st.selectbox("选择AI模型", ["智谱AI", "OpenAI"]) #显示模型可选项目
         ai_input = st.text_area("2.输入AI处理需求", height=100)
         ai_uploaded_file = st.file_uploader("或上传需求模版", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
-
+        
         col3, col4 = st.columns(2)
         show_buttons(col3, "提交AI", lambda: process_ai_input(ai_input, ai_uploaded_file, ai_model_selector))
         show_buttons(col4, "清除AI内容", clear_ai_input)
@@ -63,7 +67,7 @@ def show_ChatAnything_page():
         content_output_display = st.session_state.get('content_output', '')
         st.text_area("已提交的内容", content_output_display, height=300)
 
-        st.write(""" --- """)
+        st.divider() #画一条分界线
         
         ai_output_display = st.session_state.get("ai_output", '')
         st.write(ai_output_display)

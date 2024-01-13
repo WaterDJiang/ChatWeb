@@ -1,7 +1,7 @@
 import streamlit as st
-import streamlit_analytics #引入外部组件
+import streamlit_analytics #引入外部统计组件
 
-# 在侧栏中显示日志
+# 加入网页点击记录
 with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”就能在网页上看到如下统计组件图
 
     # 在全局位置调用 set_page_config
