@@ -52,7 +52,7 @@ def show_ChatAnything_page():
             st.image(image_path, width=70)
         with col1_2:
             st.title("ChatAnything")
-        st.caption("作者: [ Wattter ] - 版本 0.4.0")
+        st.caption("作者: [ Wattter ] - 版本 0.5.0")
 
         content_output_display = st.session_state.get('content_output', '')
         st.text_area("已提交的内容", content_output_display, height=300)
