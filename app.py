@@ -17,7 +17,8 @@ st.sidebar.title("Water.AI")
 page_options = ["首页", "ChatAnything"] #"ChatWeb", "ChatContents"
 
 # 创建下拉菜单以选择页面
-selected_page = st.sidebar.selectbox("当前页面", page_options)
+selected_page = st.sidebar.selectbox("选择工具开启你的AI之旅吧", page_options)
+
 
 # 根据所选页面显示相应内容
 if selected_page == "首页":

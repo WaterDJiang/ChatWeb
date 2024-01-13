@@ -28,6 +28,7 @@ def show_buttons(col, button_label, on_click_function):
 # 主页面函数
 def show_ChatAnything_page():
     with st.sidebar:
+        st.write(""" --- """)
         user_input = st.text_area("1.请输入文本，甚至试试网址", height=100)
         uploaded_file = st.file_uploader("或上传文件", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"])
 
@@ -51,7 +52,7 @@ def show_ChatAnything_page():
             st.image(image_path, width=70)
         with col1_2:
             st.title("ChatAnything")
-        st.caption("作者: [ Wattter ] - 版本 0.5.0")
+        st.caption("作者: [ Wattter ] - 版本 0.4.0")
 
         content_output_display = st.session_state.get('content_output', '')
         st.text_area("已提交的内容", content_output_display, height=300)
