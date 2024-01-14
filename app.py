@@ -22,18 +22,18 @@ with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”�
             with col1_2:
                 st.title("Wattter.AI")
                 # 显示固定的版本信息
-                st.sidebar.caption("作者：[ Water.D.J ] -- 版本： 0.5.0")
+                st.sidebar.caption("作者：[ Water.D.J ] -- 版本： 0.6.0")
 
 
     # 定义页面选项
-    page_options = ["首页", "ChatAnything"] #"ChatWeb", "ChatContents"
+    page_options = ["ChatAnything","介绍页"] #"ChatWeb", "ChatContents"
 
     # 创建下拉菜单以选择页面
     selected_page = st.sidebar.selectbox("选择工具开启你的AI之旅吧", page_options)
 
 
     # 根据所选页面显示相应内容
-    if selected_page == "首页":
+    if selected_page == "介绍页":
         show_home_page()
     # elif selected_page == "ChatWeb":
     #     show_chatweb_page()
