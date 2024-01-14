@@ -51,7 +51,7 @@ def process_uploaded_or_template_content(file, content_type):
 # 主处理函数
 def process_content_input(user_input, uploaded_file, template_file):
     """处理用户输入和上传文件的内容"""
-    with st.spinner('处理中...'):
+    with st.spinner('烧脑中...'):
         try:
             urls, text_without_url = extract_url_and_text(user_input)
             scraped_content = process_scraped_content(urls) if urls else ""
