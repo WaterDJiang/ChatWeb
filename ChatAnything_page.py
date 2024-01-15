@@ -93,7 +93,7 @@ def combine_input(scraped_content, file_content_for_model, text_without_url, tem
             scraped_content_str,
             file_content_for_model_str,
             text_without_url_str,
-            "请综合以上内容进行回复，回复的格式要求如下：",  # 手动添加的模版提示
+            "请综合以上内容进行回复，回复的格式要求如下，请用markdown方式呈现：",  # 手动添加的模版提示
             template_content_str] 
         if part.strip()
     ]
