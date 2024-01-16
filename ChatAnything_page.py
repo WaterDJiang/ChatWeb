@@ -182,6 +182,8 @@ def show_ChatAnything_page():
           （4）没有模版，也可以直接在输入框输入问题或要求。
         """
         )
+        image_path = "images/jiaoliu.jpg"
+        st.image(image_path, width=70)
 
     with st.container():
         col1_1, col1_2 = st.columns([1, 15])
