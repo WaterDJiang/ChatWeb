@@ -183,7 +183,7 @@ def show_ChatAnything_page():
         """
         )
         image_path = "images/jiaoliu.jpg"
-        st.image(image_path, width=700)
+        st.image(image_path, width=200)
 
     with st.container():
         col1_1, col1_2 = st.columns([1, 15])
