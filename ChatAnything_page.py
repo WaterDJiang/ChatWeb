@@ -131,7 +131,7 @@ def show_ChatAnything_page():
         user_input = st.text_area("输入任意内容开始探索吧", height=120)
 
         #上传按钮
-        col1, col2 = st.columns([1, 2], gap="medium")
+        col1, col2 = st.columns([1, 1], gap="medium")
 
         uploaded_file = None
         with col1:
@@ -150,7 +150,7 @@ def show_ChatAnything_page():
             template_file = st.file_uploader("选择需要上传的模版", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"], key='file_uploader2')
         
         # 发送按钮
-        col1, col2 = st.columns([1, 2], gap="medium")
+        col1, col2 = st.columns([1, 1], gap="medium")
         show_buttons(col1, "🚀 发送内容", lambda: process_content_input(user_input, uploaded_file, template_file))
         show_buttons(col2, "🧹 清除内容", clear_content_input)
 
