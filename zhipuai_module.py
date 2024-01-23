@@ -1,4 +1,5 @@
 from zhipuai import ZhipuAI
+import os
 
 # 设置智谱AI的API密钥
 zhipuai_api_key = st.secrets["zhipuai"]["api_key"]
