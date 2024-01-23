@@ -1,4 +1,4 @@
-import zhipuai
+from zhipuai import ZhipuAI
 import os
 import streamlit as st
 
