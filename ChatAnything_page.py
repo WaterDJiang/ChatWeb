@@ -5,6 +5,7 @@ from openai_module import generate_with_openai_stream
 from zhipuai_module import sse_invoke_example
 from scraper import scrape_website
 from datetime import datetime
+from cogview import cogview_huatu
 
 # 正则表达式用于检测URL
 URL_REGEX = re.compile(
@@ -108,11 +109,41 @@ def process_model(combined_input):
     response = sse_invoke_example(combined_input) if ai_model == "智谱AI" else generate_with_openai_stream(combined_input)
     st.session_state["ai_output"] = response
 
+def process_cogview(combined_input):  # 定义画图工具
+    """调用AI画图处理"""
+    ai_model = "智谱AI"
+    response = cogview_huatu(combined_input) if ai_model == "智谱AI" else generate_with_openai_stream(combined_input)
+    st.session_state["cogview_output"] = response
+
+def process_cogview_input(user_input, uploaded_file, template_file):
+    """处理用户画图需求"""
+    with st.spinner('烧脑中...'):
+        try:
+            urls, text_without_url = extract_url_and_text(user_input)
+            scraped_content = process_scraped_content(urls) if urls else ""
+            file_content_for_model = process_uploaded_or_template_content(uploaded_file,  'file') if uploaded_file else ""
+            template_content = process_uploaded_or_template_content(template_file, 'file') if template_file else ""
+            
+            current_display_content = "\n".join([scraped_content, file_content_for_model]).strip()
+            update_content_output(current_display_content)
+            all_scraped_content = st.session_state.get('scraped_content', '') + "\n" + scraped_content
+            all_uploaded_content = st.session_state.get('uploaded_file_content', '') + "\n" + file_content_for_model
+            combined_input = combine_input(all_scraped_content, all_uploaded_content, text_without_url, template_content)
+            st.session_state['combined_input'] = combined_input
+
+            process_cogview(combined_input)
+
+            st.session_state['scraped_content'] = all_scraped_content
+            st.session_state['uploaded_file_content'] = all_uploaded_content
+        except Exception as e:
+            st.error(f"处理内容时出错: {e}")
+
+
 # 用户界面相关的函数
-def show_buttons(col, button_label, on_click_function):
+def show_buttons(col, button_label, on_click_function, key):
     """在指定列中显示按钮并绑定点击事件"""
     with col:
-        if st.button(button_label):
+        if st.button(button_label, key=key):
             on_click_function()
 
 def clear_content_input():
@@ -151,8 +182,13 @@ def show_ChatAnything_page():
         
         # 发送按钮
         col1, col2 = st.columns([1, 1], gap="medium")
-        show_buttons(col1, "🚀 发送内容", lambda: process_content_input(user_input, uploaded_file, template_file))
-        show_buttons(col2, "🧹 清除内容", clear_content_input)
+        show_buttons(col1, "🚀 发送内容", lambda: process_content_input(user_input, uploaded_file, template_file), key="send_button1")
+        show_buttons(col2, "🧹 清除内容", clear_content_input, key="clear_button1")
+
+        # 发送画图按钮
+        col1, col2 = st.columns([1, 1], gap="medium")
+        show_buttons(col1, "🖌️ 开始画图", lambda: process_cogview_input(user_input, uploaded_file, template_file), key="send_button2")
+        # show_buttons(col2, "🧹 清除内容", clear_content_input, key="clear_button2")
 
 
         st.divider()
@@ -182,8 +218,6 @@ def show_ChatAnything_page():
           （4）没有模版，也可以直接在输入框输入问题或要求。
         """
         )
-        image_path = "images/jiaoliu.jpg"
-        st.image(image_path, width=200)
 
     with st.container():
         col1_1, col1_2 = st.columns([1, 15])
@@ -201,16 +235,25 @@ def show_ChatAnything_page():
 
         # AI模型的输出区域
         st.write("Wattter.AI")
-        ai_output_display = st.session_state.get("ai_output", '')
-        st.markdown(ai_output_display)
+        # 尝试获取ai_output和cogview_output
+        ai_output = st.session_state.get("ai_output", None)
+        cogview_output = st.session_state.get("cogview_output", None)
 
-        # 如果有AI输出，提供下载按钮
-        if ai_output_display:
+        # 判断获取到的内容是哪一种类型
+        if ai_output is not None:
+            # 如果是ai_output，则用markdown展示
+            st.markdown(ai_output)
+            # 如果有AI输出，提供下载按钮
             current_time = datetime.now().strftime("%Y%m%d%H%M%S")
             download_filename = f"ChatAnything_{current_time}.txt"
-            st.download_button(label="下载AI处理结果", data=ai_output_display, file_name=download_filename)
+            st.download_button(label="下载AI处理结果", data=ai_output, file_name=download_filename)
+        elif cogview_output is not None:
+            # 如果是cogview_output，则用image展示
+            st.image(cogview_output, width=500)
+        else:
+            # 如果都没有获取到，展示一个提示信息
+            st.write("暂无输出内容")
 
 if __name__ == "__main__":
     show_ChatAnything_page()
-
 
