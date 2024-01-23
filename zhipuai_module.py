@@ -3,7 +3,7 @@ import os
 import streamlit as st
 
 # 设置智谱AI的API密钥
-zhipuai_api_key = st.secrets["zhipuai"]["api_key"]
+zhipu_api_key = st.secrets["zhipuai"]["api_key"]
 
 #定义一个函数，用于调用智谱AI模型并处理前端传入的文本
 def sse_invoke_example(prompt_text):
@@ -12,7 +12,7 @@ def sse_invoke_example(prompt_text):
         raise ValueError("API密钥未设置。")
 
     # 创建一个ZhipuAI客户端实例
-    client = ZhipuAI(api_key=zhipuai_api_key)
+    client = ZhipuAI(api_key=zhipu_api_key)
 
     # 构建prompt结构体
     prompt_input = [
