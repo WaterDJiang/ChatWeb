@@ -12,7 +12,7 @@ def sse_invoke_example(prompt_text):
         raise ValueError("API密钥未设置。")
 
     # 创建一个ZhipuAI客户端实例
-    client = ZhipuAI(api_key=zhipu_api_key)
+    client = ZhipuAI(api_key=zhipuai_api_key)
 
     # 构建prompt结构体
     prompt_input = [
