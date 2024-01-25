@@ -5,8 +5,12 @@ import streamlit_analytics #引入外部统计组件
 with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”就能在网页上看到如下统计组件图
 
     # 在全局位置调用 set_page_config
-    st.set_page_config(layout="wide")
-
+    st.set_page_config(
+        page_title="Wattter.AI",
+        page_icon="🧊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
     # 导入页面模块
     from home_page import show_home_page
     # from ChatContents_page import show_ChatContents_page
