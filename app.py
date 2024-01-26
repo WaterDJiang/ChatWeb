@@ -19,7 +19,7 @@ with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”�
 
     # 创建侧边栏
     with st.sidebar:
-            col1_1, col1_2 = st.columns([1,5])
+            col1_1, col1_2 = st.columns([1,3])
             with col1_1:
                 image_path = "images/im3.png"
                 st.image(image_path, width=70)
