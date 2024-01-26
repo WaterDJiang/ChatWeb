@@ -26,7 +26,7 @@ with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”�
             with col1_2:
                 st.title("Wattter.AI")
                 # 显示固定的版本信息
-                st.sidebar.caption("作者：[ Water.D.J ] -- 版本： 0.7.0")
+                st.sidebar.caption("作者：[ Water.D.J ] -- 版本： 0.6.1")
                 st.sidebar.caption("https://chatweb.streamlit.app")
 
 
