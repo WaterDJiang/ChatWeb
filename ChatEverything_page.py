@@ -1,34 +1,26 @@
 
 import streamlit as st
 from zhipuai_module import sse_invoke_example
+from content_processing import process_input
 import time
+import re
+from collections import deque
 
-
-def memory_prompt(prompt_text, history):
+def memory_prompt(process_prompt_text, history):
     """
-    将用户的输入和聊天历史结合起来，但只包括最近的5条历史记录。
-
-    参数:
-    prompt_text (str): 用户的最新消息。
-    history (list of dict): 聊天历史，其中每条消息是一个包含 'role' 和 'content' 键的字典。
-
-    返回:
-    str: 包含历史的完整提示文本。
+    仅包含最近的5条历史记录。
     """
-    # 仅选择最近的5条聊天记录
-    recent_history = history[-5:]
+    if not isinstance(history, deque):
+        history = deque(history, maxlen=5)
 
-    # 将聊天历史转换为字符串
-    history_str = "\n".join([f"{message['role']}: {message['content']}" for message in recent_history])
-    
-    # 将最新的用户输入添加到历史字符串中
-    full_prompt = history_str + "\nUser: " + prompt_text
-
+    history_str = "\n".join([f"{message['role']}: {message['content']}" for message in history])
+    full_prompt = f"{history_str}\nUser: {process_prompt_text}"
     return full_prompt
 
-
-def show_ChatEverything_page():
-    # 初始化聊天历史，设置版头
+def init_chat_interface():
+    """
+    初始化聊天界面。
+    """
     with st.container():
         col1_1, col1_2 = st.columns([1, 15])
         with col1_1:
@@ -38,46 +30,68 @@ def show_ChatEverything_page():
             st.title("ChatEverything")
     st.divider()
 
-    # 添加删除聊天历史的按钮
     if st.sidebar.button('清理聊天记录'):
-        st.session_state.messages = []
+        st.session_state.messages.clear()
 
-    # 初始化聊天历史
+def handle_user_input():
+    """
+    处理用户输入。
+    """
+    if prompt_text := st.chat_input("说点什么?"):
+        user_avatar = "🤔"
+        with st.chat_message("user", avatar=user_avatar):
+            st.markdown(prompt_text)
+        return prompt_text
+    return None
+
+def process_and_display_response(prompt_text):
+    """
+    处理并展示响应。
+    """
+    # 通过content_processing 模块处理内容
+    process_input(prompt_text, uploaded_file = None, template_file = None , process_function = None) 
+    process_prompt_text = st.session_state['combined_input']
+    ai_avatar = "🤖"
+    with st.chat_message("ai", avatar=ai_avatar):
+        message_placeholder = st.empty()
+        full_response = ""
+        full_prompt = memory_prompt(process_prompt_text, st.session_state.messages)
+
+        # 历史文本整合后通过模型获取回复
+        assistant_response = sse_invoke_example(full_prompt)   
+
+        #模拟流式传输打字效果
+        for chunk in assistant_response.split():  
+            full_response += chunk + " "
+            time.sleep(0.088)
+            message_placeholder.markdown(full_response + "▌", unsafe_allow_html=True)
+
+        # 在最终展示模型回复前添加短暂延迟作为过渡
+        time.sleep(1)  # 这里的时间可以根据需要调整    
+
+        #打字模拟完毕后，最后呈现模型返回的格式，避免流式打字的模版改变   
+        message_placeholder.markdown(assistant_response, unsafe_allow_html=True)
+
+    return assistant_response
+
+def show_ChatEverything_page():
+    """
+    显示主页面。
+    """
     if "messages" not in st.session_state:
-        st.session_state.messages = []
+        st.session_state.messages = deque(maxlen=5)
 
-    # 在应用重新运行时显示历史聊天信息
+    init_chat_interface()
+
     for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=message["avatar"]):
-            st.write(message["content"])
+            st.markdown((message["content"]), unsafe_allow_html=True)
 
-    # 接受用户输入
-    if prompt_text := st.chat_input("说点什么?"):
-        # 在聊天消息容器中显示用户消息
-        user_avatar = "🤵"
-        with st.chat_message("user", avatar=user_avatar):
-            st.write(prompt_text)
-        # 将用户消息添加到聊天历史中
-        st.session_state.messages.append({"role": "user", "content": prompt_text, "avatar": user_avatar})
-
-        # 生成并显示助手响应
-        ai_avatar = "🤖"
-        with st.chat_message("ai", avatar=ai_avatar):
-            message_placeholder = st.empty()
-            full_response = ""
-            # 结合用户输入与聊天历史
-            full_prompt = memory_prompt(prompt_text, st.session_state.messages)
-            assistant_response = sse_invoke_example(full_prompt)
-
-            # 模拟响应的流式传输，带有毫秒级延迟
-            for chunk in assistant_response.split():
-                full_response += chunk + " "
-                time.sleep(0.08)
-                # 添加闪烁的光标以模拟打字
-                message_placeholder.write(full_response + "▌")
-            message_placeholder.write(full_response)
-        # 将助手的响应添加到聊天历史中
-        st.session_state.messages.append({"role": "ai", "content": full_response, "avatar": ai_avatar})
+    prompt_text = handle_user_input()
+    if prompt_text:
+        st.session_state.messages.append({"role": "user", "content": prompt_text, "avatar": "🤔"})
+        full_response = process_and_display_response(prompt_text)
+        st.session_state.messages.append({"role": "ai", "content": full_response, "avatar": "🤖"})
 
 if __name__ == "__main__":
     show_ChatEverything_page()
