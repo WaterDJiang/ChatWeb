@@ -56,15 +56,15 @@ def process_and_display_response(prompt_text):
         message_placeholder = st.empty()
         full_response = ""
         full_prompt = memory_prompt(process_prompt_text, st.session_state.messages)
+        with st.spinner('处理中...'):
+            # 历史文本整合后通过模型获取回复
+            assistant_response = sse_invoke_example(full_prompt)   
 
-        # 历史文本整合后通过模型获取回复
-        assistant_response = sse_invoke_example(full_prompt)   
-
-        #模拟流式传输打字效果
-        for chunk in assistant_response.split():  
-            full_response += chunk + " "
-            time.sleep(0.088)
-            message_placeholder.markdown(full_response + "▌", unsafe_allow_html=True)
+            #模拟流式传输打字效果
+            for chunk in assistant_response.split():  
+                full_response += chunk + " "
+                time.sleep(0.088)
+                message_placeholder.markdown(full_response + "▌", unsafe_allow_html=True)
 
         # 在最终展示模型回复前添加短暂延迟作为过渡
         time.sleep(1)  # 这里的时间可以根据需要调整    
