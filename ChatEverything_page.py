@@ -56,7 +56,7 @@ def process_and_display_response(prompt_text):
         message_placeholder = st.empty()
         full_response = ""
         full_prompt = memory_prompt(process_prompt_text, st.session_state.messages)
-        with st.spinner('处理中...'):
+        with st.spinner('烧脑中...'):
             # 历史文本整合后通过模型获取回复
             assistant_response = sse_invoke_example(full_prompt)   
 
