@@ -51,8 +51,24 @@ def extract_title(soup):
     return title_tag.get_text(strip=True) if title_tag else "No Title"
 
 def convert_to_markdown(soup):
+    # 移除所有div的style属性
+    for div in soup.find_all("div"):
+        div.attrs.pop("style", None)
+
+    # 移除所有标签的不必要属性
     for tag in soup.find_all(True):
-        tag.attrs = {}
+        # 保留某些标签的特定属性，如果需要
+        if tag.name in ["a"]:
+            tag.attrs = {key: tag[key] for key in tag.attrs if key in ["href"]}
+        else:
+            tag.attrs = {}
+
+    # 移除不支持的标签
+    tags_to_remove = ["img", "video"]
+    for tag in tags_to_remove:
+        for element in soup.find_all(tag):
+            element.decompose()
+
     process_tables(soup)
     markdown_text = md(str(soup))
     return remove_empty_lines(markdown_text)
