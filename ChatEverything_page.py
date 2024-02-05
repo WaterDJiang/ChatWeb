@@ -118,7 +118,7 @@ def show_ChatEverything_page():
         ai_response = model_response(prompt_text)
         if ai_response:
             with st.chat_message("assistant", avatar="🤖"):
-                st.markdown(ai_response)
+                st.markdown(ai_response, unsafe_allow_html=True)
             st.session_state.messages.append({"role": "assistant", "content": ai_response, "avatar": "🤖"})
 
 if __name__ == "__main__":
