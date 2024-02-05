@@ -8,6 +8,10 @@ import json
 import requests
 from datetime import datetime, timedelta
 
+zhipu_api_key = st.secrets["zhipuai"]
+birth_info_key =st.secrets["birth_info_key"]
+footprint_key = st.secrets["footprint_key"]
+
 # GLM 画图函数
 def get_cogview(viewprompt_text):
     client = ZhipuAI(api_key=zhipu_api_key) 
