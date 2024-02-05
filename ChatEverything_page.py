@@ -5,18 +5,6 @@ from zhipuai_module import parse_function_call, glm_invoke
 from collections import deque
 from content_processing import process_input  # 导入内容处理模块
 
-def memory_prompt(process_prompt_text, history):
-    """
-    结合用户的最新输入和聊天历史，但只包含最近的5条历史记录。
-    """
-    if not isinstance(history, deque):
-        history = deque(history, maxlen=5)  # 确保历史记录为deque类型，最大长度为5
-
-    # 将历史记录转换为字符串格式
-    history_str = "\n".join([f"{message['role']}: {message['content']}" for message in history])
-    full_prompt = f"{history_str}\nUser: {process_prompt_text}"  # 将用户最新输入添加到历史记录字符串
-    return full_prompt
-
 def init_chat_interface():
     """
     初始化聊天界面布局。
@@ -31,8 +19,33 @@ def init_chat_interface():
     st.divider()  # 添加分割线
 
     with st.sidebar:
+        """显示边栏"""
+        if 'show_file_uploader' not in st.session_state:
+            st.session_state['show_file_uploader'] = False
+        if 'show_template_uploader' not in st.session_state:
+            st.session_state['show_template_uploader'] = False
+
+        st.divider()
+
+        # 上传按钮
+        col1, col2 = st.columns([1, 1], gap="medium")
+
+        with col1:
+            if st.button("➕ 上传资料", key="btn_upload_file2"):
+                st.session_state['show_file_uploader'] = not st.session_state['show_file_uploader']
+
+        if st.session_state['show_file_uploader']:
+            st.session_state['uploaded_file'] = st.file_uploader("选择需要上传的文件", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"], key='file_uploader3')
+
+        with col2:
+            if st.button("➕ 回复模版", key="btn_template_file2"):
+                st.session_state['show_template_uploader'] = not st.session_state['show_template_uploader']
+
+        if st.session_state['show_template_uploader']:
+            st.session_state['template_file'] = st.file_uploader("选择需要上传的模版", type=["pdf", "docx", "txt", "xlsx", "xls", "pptx", "ppt", "csv"], key='file_uploader4')
 
         st.divider()  # 添加分割线
+       
         # 添加侧边栏按钮以清理聊天记录
         if st.sidebar.button('清理聊天记录'):
             st.session_state.messages.clear()  # 清理聊天记录
@@ -51,6 +64,18 @@ def init_chat_interface():
         """
         )
 
+def memory_prompt(process_prompt_text, history):
+    """
+    结合用户的最新输入和聊天历史，但只包含最近的5条历史记录。
+    """
+    if not isinstance(history, deque):
+        history = deque(history, maxlen=5)  # 确保历史记录为deque类型，最大长度为5
+
+    # 将历史记录转换为字符串格式
+    history_str = "\n".join([f"{message['role']}: {message['content']}" for message in history])
+    full_prompt = f"{history_str}\nUser: {process_prompt_text}"  # 将用户最新输入添加到历史记录字符串
+    return full_prompt
+
 def handle_user_input():
     """
     获取并显示用户输入。
@@ -60,18 +85,24 @@ def handle_user_input():
         user_avatar = "🤔"
         with st.chat_message("user", avatar=user_avatar):
             st.markdown(prompt_text)
+
         return prompt_text
     return None
+
 
 def model_response(prompt_text):
     """
     根据用户输入获取模型的响应。
     """
     with st.spinner('烧脑中...'):
+        # 获取会话状态中的文件
+        uploaded_file = st.session_state.get('uploaded_file')
+        template_file = st.session_state.get('template_file')
+
         # 处理用户输入内容
-        process_input(prompt_text, uploaded_file=None, template_file=None, process_function=None) #因为共用内容处理模块，这里只传递部分的变量
+        process_input(prompt_text, uploaded_file, template_file, process_function=None)  # 因为共用模块，本流出不需要的变量，用 None 表示
         process_prompt_text = st.session_state['combined_input']
-    
+
         user_input = memory_prompt(process_prompt_text, st.session_state.messages)
         if user_input:
             messages = [
@@ -82,7 +113,7 @@ def model_response(prompt_text):
             messages.append(response.choices[0].message.model_dump())
             
             ai_response = parse_function_call(response, messages)
-    
+ 
             return ai_response
 
 def show_ChatEverything_page():
