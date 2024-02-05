@@ -16,4 +16,3 @@ streamlit_analytics
 faiss-cpu
 numpy
 playwright  # 还需要 playwright install
-json
