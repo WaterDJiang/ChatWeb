@@ -7,7 +7,6 @@ from zhipuai import ZhipuAI
 from functions import function_tools , function_map
 
 # 设置智谱AI的API密钥
-zhipu_api_key = "58fed83681006df393f2bf6bcffb3a9a.ILRQgQr0jUDGSPuX"
 client = ZhipuAI(api_key=zhipu_api_key)
 
 
