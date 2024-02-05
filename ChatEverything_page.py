@@ -51,17 +51,6 @@ def init_chat_interface():
         """
         )
 
-def memory_prompt(prompt_text, history):
-    """
-    结合用户的最新输入和聊天历史，但只包含最近的5条历史记录。
-    """
-    if not isinstance(history, deque):
-        history = deque(history, maxlen=5)
-
-    history_str = "\n".join([f"{message['role']}: {message['content']}" for message in history])
-    full_prompt = f"{history_str}\nUser: {prompt_text}"
-    return full_prompt
-
 def handle_user_input():
     """
     获取并显示用户输入。
