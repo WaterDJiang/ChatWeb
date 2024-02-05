@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit_analytics #引入外部统计组件
 
 # 加入网页点击记录
-with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”就能在网页上看到如下统计组件图
+with streamlit_analytics.track(): 
 
     # 在全局位置调用 set_page_config
     st.set_page_config(
@@ -26,12 +26,12 @@ with streamlit_analytics.track(): #在访问路由后加上“?analytics=on”�
             with col1_2:
                 st.title("Wattter.AI")
                 # 显示固定的版本信息
-                st.sidebar.caption("作者：[ Water.D.J ] -- 版本： 0.6.1")
+                st.sidebar.caption("作者：[ Water.D.J ] -- 版本： 0.8.0")
                 st.sidebar.caption("https://chatweb.streamlit.app")
 
 
     # 定义页面选项
-    page_options = ["ChatAnything","ChatEverything","介绍页"] #"ChatWeb", "ChatContents"
+    page_options = ["ChatEverything","ChatAnything","介绍页"] 
 
     # 创建下拉菜单以选择页面
     selected_page = st.sidebar.radio("选择工具开启你的AI之旅吧", page_options)
