@@ -8,9 +8,9 @@ import json
 import requests
 from datetime import datetime, timedelta
 
-zhipu_api_key = st.secrets["zhipuai"]
-birth_info_key =st.secrets["birth_info_key"]
-footprint_key = st.secrets["footprint_key"]
+zhipu_api_key = st.secrets["zhipuai"]["api_key"]
+birth_info_key =st.secrets["birth_info_key"]["api_key"]
+footprint_key = st.secrets["footprint_key"]["api_key"]
 
 # GLM 画图函数
 def get_cogview(viewprompt_text):
