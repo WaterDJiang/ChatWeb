@@ -78,23 +78,23 @@ def model_response(prompt_text):
     """
     根据用户输入获取模型的响应。
     """
-
-    # 处理用户输入内容
-    process_input(prompt_text, uploaded_file=None, template_file=None, process_function=None) #因为共用内容处理模块，这里只传递部分的变量
-    process_prompt_text = st.session_state['combined_input']
-
-    user_input = memory_prompt(process_prompt_text, st.session_state.messages)
-    if user_input:
-        messages = [
-            {"role": "system", "content": "不要假设或猜测传入函数的参数值。如果用户的描述不明确，请要求用户提供必要信息"},
-            {"role": "user", "content": user_input}
-        ]
-        response = glm_invoke(messages)
-        messages.append(response.choices[0].message.model_dump())
-        
-        ai_response = parse_function_call(response, messages)
-
-        return ai_response
+    with st.spinner('烧脑中...'):
+        # 处理用户输入内容
+        process_input(prompt_text, uploaded_file=None, template_file=None, process_function=None) #因为共用内容处理模块，这里只传递部分的变量
+        process_prompt_text = st.session_state['combined_input']
+    
+        user_input = memory_prompt(process_prompt_text, st.session_state.messages)
+        if user_input:
+            messages = [
+                {"role": "system", "content": "不要假设或猜测传入函数的参数值。如果用户的描述不明确，请要求用户提供必要信息"},
+                {"role": "user", "content": user_input}
+            ]
+            response = glm_invoke(messages)
+            messages.append(response.choices[0].message.model_dump())
+            
+            ai_response = parse_function_call(response, messages)
+    
+            return ai_response
 
 def show_ChatEverything_page():
     """
