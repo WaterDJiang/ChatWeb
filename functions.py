@@ -8,12 +8,6 @@ import json
 import requests
 from datetime import datetime, timedelta
 
-# 设置智谱AI的API密钥
-zhipu_api_key = "58fed83681006df393f2bf6bcffb3a9a.ILRQgQr0jUDGSPuX"
-birth_info_key ="9923c679819f4e94af8ddb1f798b95ee"
-footprint_key = "VJjxd5IbAsj8vbYp66wLbOxwJLNas6bB7D+zPo+JHAriJt4Bdy8zsRyBaOPmdI0G"
-
-
 # GLM 画图函数
 def get_cogview(viewprompt_text):
     client = ZhipuAI(api_key=zhipu_api_key) 
