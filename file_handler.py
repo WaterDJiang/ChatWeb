@@ -15,9 +15,23 @@ def handle_text(uploaded_file):
         return file.read()
 
 def handle_pdf(uploaded_file):
-    """处理PDF文件"""
+    """处理PDF文件，尝试更智能地识别段落和行"""
     reader = PdfReader(uploaded_file)
-    return ''.join(page.extract_text() for page in reader.pages)
+    text = ''
+
+    for page in reader.pages:
+        page_text = page.extract_text() or ''
+        lines = page_text.split('\n')
+
+        for line in lines:
+            # 如果行以常见的句末符号结束，则在该行后添加换行符
+            if line.strip() and line.strip()[-1] in ['.', '?', '!', ':']:
+                text += line.strip() + '\n'
+            else:
+                # 否则，将这一行添加到段落中
+                text += line.strip() + ' '
+        text += '\n\n'  # 在页面之间添加额外的换行
+    return text
 
 def handle_docx(uploaded_file):
     """处理DOCX文件"""
