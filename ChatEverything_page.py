@@ -96,11 +96,11 @@ def handle_user_input():
     return None
 
 
-def model_response(prompt_text):
+def model_response(prompt_text, recent_messages):
     """
     根据用户输入获取模型的响应。
     """
-    with st.spinner('烧脑中...'):
+    with st.spinner('Wattter烧脑中...'):
         # 获取会话状态中的文件
         uploaded_file = st.session_state.get('uploaded_file')
         template_file = st.session_state.get('template_file')
@@ -109,13 +109,14 @@ def model_response(prompt_text):
         process_input(prompt_text, uploaded_file, template_file, process_function=None)  # 因为共用模块，本流出不需要的变量，用 None 表示
         process_prompt_text = st.session_state['combined_input']
 
-        user_input = memory_prompt(process_prompt_text, st.session_state.messages)
+        user_input = memory_prompt(process_prompt_text, recent_messages)  # 使用最近的消息列表
         if user_input:
             messages = [
                 {"role": "system", "content": "不要假设或猜测传入函数的参数值。如果用户的描述不明确，请要求用户提供必要信息"},
                 {"role": "user", "content": user_input}
             ]
             response = glm_invoke(messages)
+
             messages.append(response.choices[0].message.model_dump())
             
             ai_response = parse_function_call(response, messages)
@@ -126,12 +127,15 @@ def show_ChatEverything_page():
     """
     显示整个聊天页面。
     """
+    # 确保session_state中有messages和recent_messages两个列表
     if "messages" not in st.session_state:
-        st.session_state.messages = deque(maxlen=5)
+        st.session_state.messages = []  # 保存所有历史记录
+    if "recent_messages" not in st.session_state:
+        st.session_state.recent_messages = deque(maxlen=5)  # 仅保存用于模型输入的最近5条记录
 
     init_chat_interface()
 
-    # 显示历史聊天记录，让历史消息保持显示
+    # 显示所有历史聊天记录
     for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=message["avatar"]):
             st.markdown(message["content"], unsafe_allow_html=True)
@@ -139,13 +143,18 @@ def show_ChatEverything_page():
     # 处理新的用户输入
     prompt_text = handle_user_input()
     if prompt_text:
-        st.session_state.messages.append({"role": "user", "content": prompt_text, "avatar": "🤔"})
-        
-        ai_response = model_response(prompt_text)
+        user_message = {"role": "user", "content": prompt_text, "avatar": "🤔"}
+        st.session_state.messages.append(user_message)  # 添加到所有历史记录
+        st.session_state.recent_messages.append(user_message)  # 添加到最近的5条记录
+
+        # 注意这里将recent_messages传递给model_response，而不是messages
+        ai_response = model_response(prompt_text, st.session_state.recent_messages)
         if ai_response:
+            ai_message = {"role": "assistant", "content": ai_response, "avatar": "🤖"}
             with st.chat_message("assistant", avatar="🤖"):
                 st.markdown(ai_response, unsafe_allow_html=True)
-            st.session_state.messages.append({"role": "assistant", "content": ai_response, "avatar": "🤖"})
+            st.session_state.messages.append(ai_message)  # 添加到所有历史记录
+            st.session_state.recent_messages.append(ai_message)  # 添加到最近的5条记录
 
 if __name__ == "__main__":
     show_ChatEverything_page()
