@@ -1,6 +1,7 @@
 import streamlit as st
 import re
 from file_handler import handle_uploaded_file
+from openai_module import generate_with_openai_stream
 from zhipuai_module import parse_function_call, sse_invoke_example
 from scraper import scrape_website
 from datetime import datetime
@@ -77,7 +78,7 @@ def combine_input(scraped_content, uploaded_content, text_without_url, template_
 
 def process_input(user_input, uploaded_file, template_file, process_function=None):
     """通用函数处理输入"""
-    with st.spinner('烧脑中...'):
+    with st.spinner('内容处理中...'):
         try:
             urls, text_without_url = extract_url_and_text(user_input)
 
