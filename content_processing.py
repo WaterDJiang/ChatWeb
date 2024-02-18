@@ -36,6 +36,7 @@ def process_uploaded_content(file):
     try:
         return handle_uploaded_file(file) if file else ""
     except Exception as e:
+        logging.error(f"处理上传的文件时出错: {e}")
         st.error(f"处理上传的文件时出错: {e}")
         return ""
 
@@ -58,22 +59,27 @@ def combine_input(scraped_content, uploaded_content, text_without_url, template_
             scraped_content_str, 
             uploaded_content_str, 
             text_without_url_str, 
-            "请综合以上内容进行回复，回复的格式要求如下，请用markdown方式呈现：",  # 手动添加的模版提示
-            template_content_str
+            "请综合以上内容进行回复，回复的格式要求如下：",  # 手动添加的模版提示
+            template_content_str,
+            "请用markdown方式输出。"
         ] if part.strip()
     ]
-
+    update_content_output(scraped_content_str + uploaded_content_str)
     combined_input = "\n".join(combined_input_parts)
     return combined_input
 
-def process_input(user_input, uploaded_file, template_file, process_function = None):
+def process_input(user_input, uploaded_file, template_file, process_function=None):
     """通用函数处理输入"""
-    with st.spinner('处理中...'):
+    with st.spinner('内容处理中...'):
         try:
             urls, text_without_url = extract_url_and_text(user_input)
-            scraped_content = process_scraped_content(urls)
-            uploaded_content = process_uploaded_content(uploaded_file)
-            template_content = process_uploaded_content(template_file)
+
+            # 异步处理爬虫内容
+            scraped_content = process_scraped_content(urls) if urls else ""
+
+            # 处理上传的文件内容
+            uploaded_content = process_uploaded_content(uploaded_file) if uploaded_file else ""
+            template_content = process_uploaded_content(template_file) if template_file else ""
             
             combined_input = combine_input(scraped_content, uploaded_content, text_without_url, template_content)
             
@@ -84,9 +90,11 @@ def process_input(user_input, uploaded_file, template_file, process_function = N
             if process_function is not None:
                 process_function(combined_input)
 
+            # 保存爬取和上传的内容，以备未来使用
             st.session_state['scraped_content'] = scraped_content
             st.session_state['uploaded_file_content'] = uploaded_content
         except Exception as e:
+            logging.error(f"处理输入时出错: {e}")
             st.error(f"处理输入时出错: {e}")
 
 def process_model(combined_input):
