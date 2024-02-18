@@ -3,10 +3,10 @@ import streamlit as st
 from datetime import datetime
 from content_processing import (process_input, process_model , process_cogview)
 
-# def update_content_output(new_content):
-#     """更新展示窗口内容"""
-#     # 更新展示窗口内容，只展示当前提交的内容
-#     st.session_state['content_output'] = new_content
+def update_content_output(new_content):
+    """更新展示窗口内容"""
+    # 更新展示窗口内容，只展示当前提交的内容
+    st.session_state['content_output'] = new_content
 
 
 # 用户界面相关的函数
