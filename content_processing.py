@@ -1,7 +1,6 @@
 import streamlit as st
 import re
 from file_handler import handle_uploaded_file
-from openai_module import generate_with_openai_stream
 from zhipuai_module import parse_function_call, sse_invoke_example
 from scraper import scrape_website
 from datetime import datetime
