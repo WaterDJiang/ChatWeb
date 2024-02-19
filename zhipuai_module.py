@@ -28,7 +28,7 @@ def sse_invoke_example(prompt_text):
     try:
         # 调用chat.completions.create函数并传递参数
         response = client.chat.completions.create(
-            model="glm-4",  #"glm-3-turbo","glm-4"
+            model="glm-3-turbo",  #"glm-3-turbo","glm-4"
             messages=prompt_input,
         )
 
@@ -46,7 +46,7 @@ def glm_invoke(user_input):
     try:
         # 调用chat.completions.create函数并传递参数
         response = client.chat.completions.create(
-            model="glm-4",  #"glm-3-turbo","glm-4"
+            model="glm-3-turbo",  #"glm-3-turbo","glm-4"
             messages=user_input,
             tools=function_tools,
         )
