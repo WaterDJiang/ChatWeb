@@ -63,7 +63,7 @@ def show_ChatAnything_page():
 
         st.divider()
         # 这里可以添加其他介绍性文字或说明
-        st.write(
+        st.info(
             """
         小提示：
 
