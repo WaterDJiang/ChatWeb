@@ -51,7 +51,7 @@ def init_chat_interface():
             st.session_state.messages.clear()  # 清理聊天记录
         st.divider()
         # 这里可以添加其他介绍性文字或说明
-        st.write(
+        st.info(
             """
          **小提示**:
 
