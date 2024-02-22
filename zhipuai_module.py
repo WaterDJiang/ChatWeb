@@ -79,7 +79,7 @@ def parse_function_call(model_response, messages):
                 })
 
                 response = client.chat.completions.create(
-                    model="glm-4",
+                    model="glm-3-turbo",
                     messages=messages,
                     tools=function_tools
                 )
