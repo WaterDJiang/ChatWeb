@@ -31,7 +31,7 @@ with streamlit_analytics.track():
 
 
     # 定义页面选项
-    page_options = ["ChatEverything","ChatAnything","介绍页"] 
+    page_options = ["ChatAnything","ChatEverything","介绍页"] 
 
     # 创建下拉菜单以选择页面
     selected_page = st.sidebar.radio("选择工具开启你的AI之旅吧", page_options)
