@@ -121,7 +121,7 @@ def show_ChatAnything_page():
             with st.expander("上传的内容"):
                 st.text_area('', uploaded_content, height=250, key=uploaded_content)
 
-            combine_content = web1_content_output + web2_content_output + uploaded_content
+            combine_content = str(web1_content_output) + str(web2_content_output) + str(uploaded_content)
 
             st.caption("内容生产模版")
             user_input_template_content = st.text_area("", value=template_content, key="template_content", height=250, label_visibility="collapsed")
