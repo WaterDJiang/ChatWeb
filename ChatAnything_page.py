@@ -125,10 +125,10 @@ def show_ChatAnything_page():
 
             uploaded_content = st.session_state.get('uploaded_content', '')
             template_content = st.session_state.get('template_content', '')
-            with st.expander("上传的内容"):
-                st.text_area('', uploaded_content, height=250, key=uploaded_content)
+            with st.expander("上传内容 或 直接粘贴内容到此使用"):
+                user_input_uploaded_content=st.text_area('', value = uploaded_content, height=250, key=uploaded_content, label_visibility="collapsed")
 
-            combine_content = str(web1_content_output) + str(web2_content_output) + str(uploaded_content)
+            combine_content = str(web1_content_output) + str(web2_content_output) + str(user_input_uploaded_content)
 
             st.caption("内容生产模版")
             user_input_template_content = st.text_area("", value=template_content, key="template_content", height=250, label_visibility="collapsed")
