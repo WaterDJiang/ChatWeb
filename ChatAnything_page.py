@@ -130,7 +130,7 @@ def show_ChatAnything_page():
 
             combine_content = str(web1_content_output) + str(web2_content_output) + str(user_input_uploaded_content)
 
-            st.caption("内容生产模版")
+            st.caption("内容模版 或 处理需求")
             user_input_template_content = st.text_area("", value=template_content, key="template_content", height=250, label_visibility="collapsed")
             if st.button("🚀 内容生产", key="button_key"):  # 将获取按钮放在第二列
                 with st.spinner("烧脑中..."):
