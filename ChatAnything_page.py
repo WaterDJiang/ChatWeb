@@ -42,9 +42,9 @@ def show_buttons( button_label, on_click_function, key):
 
 def clear_content_input():
     """清除内容输入"""
-    # st.session_state.pop("content_output", None)
-    # st.session_state.pop("ai_output", None)
-    st.session_state.clear()
+    st.session_state.pop("content_output", None)
+    st.session_state.pop("ai_output", None)
+  
 
 
 def handle_web_input( web_input_key, button_key, content_output_key, expander_key): 
