@@ -131,6 +131,13 @@ def show_ChatAnything_page():
                 user_input_uploaded_content=st.text_area('', value = uploaded_content, height=250, key=uploaded_content, label_visibility="collapsed")
 
             combine_content = str(web1_content_output) + str(web2_content_output) + str(user_input_uploaded_content)
+                
+            if st.button("🪄 一键改成小红书网文", key="button_xiaohongshu"):  
+                with st.spinner("烧脑中..."):
+                    combine_input = f"请结合这里的内容：\n{combine_content}并用小红书网红文章的风格进行改写，请使用丰富表情符号完成文案创作，请用markdown格式回复"
+                    process_content = sse_invoke_no_function_model_select(combine_input,model)
+                    print(model)
+                    st.session_state['process_content'] = process_content
 
             st.caption("内容模版 或 处理需求")
             user_input_template_content = st.text_area("", value=template_content, key="template_content", height=250, label_visibility="collapsed")
