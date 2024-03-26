@@ -138,6 +138,13 @@ def show_ChatAnything_page():
                     process_content = sse_invoke_no_function_model_select(combine_input,model)
                     print(model)
                     st.session_state['process_content'] = process_content
+                        
+            if st.button("💳 一键总结知识卡片", key="button_zhishikapian"):  
+                with st.spinner("烧脑中..."):
+                    combine_input = f"请分点总结内容：\n{combine_content}的关键信息，每个关键信息用一句金句总结，并在总结后面用通俗的语言进行解释，最后用小红书网红文章的风格进行改写，请使用丰富表情符号完成文案创作，请用markdown格式回复"
+                    process_content = sse_invoke_no_function_model_select(combine_input,model)
+                    print(model)
+                    st.session_state['process_content'] = process_content
 
             st.caption("内容模版 或 处理需求")
             user_input_template_content = st.text_area("", value=template_content, key="template_content", height=250, label_visibility="collapsed")
