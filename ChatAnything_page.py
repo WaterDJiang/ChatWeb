@@ -132,7 +132,7 @@ def show_ChatAnything_page():
 
             combine_content = str(web1_content_output) + str(web2_content_output) + str(user_input_uploaded_content)
                 
-            if st.button("🪄 一键改成小红书网文", key="button_xiaohongshu"):  
+            if st.button("🪄 一键改成小红书风", key="button_xiaohongshu"):  
                 with st.spinner("烧脑中..."):
                     combine_input = f"请结合这里的内容：\n{combine_content}并用小红书网红文章的幽默风趣具有传播性的风格进行改写，请使用丰富表情符号完成文案创作，请用markdown格式回复"
                     process_content = sse_invoke_no_function_model_select(combine_input,model)
@@ -147,7 +147,7 @@ def show_ChatAnything_page():
                     st.session_state['process_content'] = process_content
 
             st.caption("内容模版 或 处理需求")
-            user_input_template_content = st.text_area("", value=template_content, key="template_content", height=250, label_visibility="collapsed")
+            user_input_template_content = st.text_area("", value=template_content, key="template_content", height=100, label_visibility="collapsed")
             if st.button("🚀 内容生产", key="button_key"):  # 将获取按钮放在第二列
                 with st.spinner("烧脑中..."):
                     combine_input = f"请结合这里的内容：\n{combine_content}并按照这个模版或者要求：\n{user_input_template_content}完成文案创作，请用markdown格式回复，不要超过1000字"
@@ -158,7 +158,7 @@ def show_ChatAnything_page():
             # 显示上传文件或用户输入的内容
             st.write("内容修改区域")
             content_output_display = st.session_state.get('process_content')
-            user_modify_content = st.text_area("", value=content_output_display,key="content_output_display", height=400, label_visibility="collapsed")
+            user_modify_content = st.text_area("", value=content_output_display,key="content_output_display", height=200, label_visibility="collapsed")
             st.divider()
 
             # AI模型的输出区域
