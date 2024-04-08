@@ -156,7 +156,7 @@ def show_ChatAnything_page():
 
         with main_col2:  # 主列2用于显示上传文件或用户输入的内容以及其他功能
             # 显示上传文件或用户输入的内容
-            st.write("内容修改区域")
+            st.write("生成内容修改区域")
             content_output_display = st.session_state.get('process_content')
             user_modify_content = st.text_area("", value=content_output_display,key="content_output_display", height=200, label_visibility="collapsed")
             st.divider()
