@@ -141,7 +141,6 @@ def show_ChatAnything_page():
                 with st.spinner("烧脑中..."):
                     combine_input = f"请结合这里的内容：\n{combine_content}并用小红书网红文章的幽默风趣具有传播性的风格进行改写，请使用丰富表情符号完成文案创作，请用markdown格式回复"
                     process_content = sse_invoke_example(combine_input)
-                    print(model)
                     st.session_state['process_content'] = process_content
                         
             if st.button("💳 一键总结知识卡片", key="button_zhishikapian"):  
