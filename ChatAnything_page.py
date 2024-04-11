@@ -143,7 +143,6 @@ def show_ChatAnything_page():
                 with st.spinner("烧脑中..."):
                     combine_input = f"请用关键词或金句分点总结内容：\n{combine_content}的关键信息，并使用内容中的案例或者通俗的语言对关键信息进行解释，完成后，再用小红书网红文章的幽默风趣、具有传播性的风格进行创作，请使用丰富表情符号完成，并用markdown格式回复"
                     process_content = sse_invoke_example(combine_input)
-                    print(model)
                     st.session_state['process_content'] = process_content
 
             st.caption("内容模版 或 处理需求")
