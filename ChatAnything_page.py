@@ -135,14 +135,14 @@ def show_ChatAnything_page():
             if st.button("🪄 一键改成小红书风", key="button_xiaohongshu"):  
                 with st.spinner("烧脑中..."):
                     combine_input = f"请结合这里的内容：\n{combine_content}并用小红书网红文章的幽默风趣具有传播性的风格进行改写，请使用丰富表情符号完成文案创作，请用markdown格式回复"
-                    process_content = sse_invoke_no_function_model_select(combine_input,model)
+                    process_content = sse_invoke_example(combine_input)
                     print(model)
                     st.session_state['process_content'] = process_content
                         
             if st.button("💳 一键总结知识卡片", key="button_zhishikapian"):  
                 with st.spinner("烧脑中..."):
                     combine_input = f"请用关键词或金句分点总结内容：\n{combine_content}的关键信息，并使用内容中的案例或者通俗的语言对关键信息进行解释，完成后，再用小红书网红文章的幽默风趣、具有传播性的风格进行创作，请使用丰富表情符号完成，并用markdown格式回复"
-                    process_content = sse_invoke_no_function_model_select(combine_input,model)
+                    process_content = sse_invoke_example(combine_input)
                     print(model)
                     st.session_state['process_content'] = process_content
 
