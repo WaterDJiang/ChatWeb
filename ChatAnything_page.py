@@ -47,7 +47,9 @@ def clear_content_input(clear_all=False):
     else:
         st.session_state.pop("content_output", None)
         st.session_state.pop("ai_output", None)
-  
+        st.session_state.pop("process_content", None)
+        st.session_state.pop("uploaded_content", None)
+        st.session_state.pop("template_content", None)
 
 
 def handle_web_input( web_input_key, button_key, content_output_key, expander_key): 
