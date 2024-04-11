@@ -40,11 +40,13 @@ def show_buttons( button_label, on_click_function, key):
     if st.button(button_label, key=key):
         on_click_function()
 
-def clear_content_input():
-    """清除内容输入"""
-    # st.session_state.pop("content_output", None)
-    # st.session_state.pop("ai_output", None)
-    st.session_state.clear()
+def clear_content_input(clear_all=False):
+    """根据参数清除会话状态内容"""
+    if clear_all:
+        st.session_state.clear()
+    else:
+        st.session_state.pop("content_output", None)
+        st.session_state.pop("ai_output", None)
   
 
 
@@ -101,6 +103,7 @@ def show_ChatAnything_page():
         
         # 发送按钮
         show_buttons("🧹 清除内容", clear_content_input, key="clear_button1")
+        
         col_ratio = st.sidebar.slider('调整展示区域的宽度比例', 1.0, 10.0, 3.0,step=0.5)
         
         #显示使用教程
