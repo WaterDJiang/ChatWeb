@@ -106,7 +106,7 @@ def show_ChatAnything_page():
         # 发送按钮
         show_buttons("🧹 清除内容", clear_content_input, key="clear_button1")
         
-        col_ratio = st.sidebar.slider('调整展示区域的宽度比例', 1.0, 10.0, 3.0,step=0.5)
+        col_ratio = st.sidebar.slider('调整展示区域的宽度比例', 1.0, 10.0, 2.5,step=0.5)
         
         #显示使用教程
         use_info()
